@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobile Computing Assignment</string>
+    <string name="authscreen_text1">Votre application n°1 pour tous vos événements universitaires !</string>
+    <string name="authscreen_button1">Connectez-vous</string>
+    <string name="authscreen_button2">" Inscrivez-vous"</string>
+</resources>
