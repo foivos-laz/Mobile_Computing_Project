@@ -3,4 +3,14 @@
     <string name="authscreen_text1">Your #1 app for all your university events!</string>
     <string name="authscreen_button1">Login</string>
     <string name="authscreen_button2">Signup</string>
+    <string name="loginscreen_text1">Welcome Back!</string>
+    <string name="loginscreen_textbox_email">Email address</string>
+    <string name="loginscreen_textbox_password">Password</string>
+    <string name="signupscreen_textbox_fullname">Full name</string>
+    <string name="signupscreen_text1">Hello there! Happy to meet you!</string>
+    <string name="signupscreen_text2">Create an account</string>
+    <string name="loginscreen_text2">Don\'t have an account?</string>
+    <string name="loginscreen_text3">Create one!</string>
+    <string name="signupscreen_text3">Already have an account?</string>
+    <string name="signupscreen_text4">Login!</string>
 </resources>

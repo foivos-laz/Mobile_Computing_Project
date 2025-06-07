@@ -3,5 +3,15 @@
     <string name="app_name">Mobile Computing Assignment</string>
     <string name="authscreen_text1">Votre application n°1 pour tous vos événements universitaires !</string>
     <string name="authscreen_button1">Connectez-vous</string>
-    <string name="authscreen_button2">" Inscrivez-vous"</string>
+    <string name="authscreen_button2">Inscrivez-vous</string>
+    <string name="loginscreen_text1">Content de te revoir!</string>
+    <string name="loginscreen_textbox_email">Adresse email</string>
+    <string name="loginscreen_textbox_password">Mot de passe</string>
+    <string name="signupscreen_textbox_fullname">Nom et prénom</string>
+    <string name="signupscreen_text1">Bonjour ! Enchanté de vous rencontrer !</string>
+    <string name="signupscreen_text2">Créer un compte</string>
+    <string name="loginscreen_text2">Vous n\'avez pas de compte ?</string>
+    <string name="loginscreen_text3">Créez-en un !</string>
+    <string name="signupscreen_text3">Vous avez déjà un compte ?</string>
+    <string name="signupscreen_text4">Connectez-vous!</string>
 </resources>

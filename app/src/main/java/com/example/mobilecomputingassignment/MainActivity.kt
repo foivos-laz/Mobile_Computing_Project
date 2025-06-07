@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
             MobileComputingAssignmentTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppNavigation(Modifier.padding(innerPadding))
+
                 }
             }
         }
