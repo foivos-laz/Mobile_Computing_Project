@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mobilecomputingassignment.screen.AuthScreen
+import com.example.mobilecomputingassignment.screen.HomeScreen
 import com.example.mobilecomputingassignment.screen.LoginScreen
 import com.example.mobilecomputingassignment.screen.SignupScreen
 
@@ -14,7 +15,19 @@ import com.example.mobilecomputingassignment.screen.SignupScreen
 fun AppNavigation(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Routes.authscreen, builder = {
+
+    /*
+    For testing purposes you can change the value of isLoggedIn
+    to either true for when the the user is connected with Firebase
+    or to false when the user isn't connected
+    After the backed is completed change it
+    Also change AuthViewModel, in viewmodel by removing the comments and it should work
+    as well as the Signinscreen and Loginscreen Buttons, by removing the comments at the onClick
+    */
+    val isLoggedIn = true //Change to:Firebase.auth.currentUser!=null
+    val fistPage = if(isLoggedIn) Routes.homescreen else Routes.authscreen
+
+    NavHost(navController = navController, startDestination = fistPage, builder = {
         composable(Routes.authscreen){
             AuthScreen(modifier, navController)
         }
@@ -23,6 +36,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable(Routes.signupscreen) {
             SignupScreen(modifier, navController)
+        }
+        composable(Routes.homescreen) {
+            HomeScreen(modifier)
         }
     })
 }

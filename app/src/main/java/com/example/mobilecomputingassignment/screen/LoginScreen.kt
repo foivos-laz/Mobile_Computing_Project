@@ -29,14 +29,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.mobilecomputingassignment.Routes
+import com.example.mobilecomputingassignment.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController, authViewModel: AuthViewModel = viewModel()) {
 
     var email by remember {
         mutableStateOf("")
@@ -51,6 +54,8 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
     }
 
     val orange = Color(0xFFF87217)
+
+    var context = LocalContext.current
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -96,7 +101,15 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
         Spacer(modifier = Modifier.height(30.dp))
 
         Button(onClick = {
-            navController.navigate(Routes.loginscreen)
+            // authViewModel.login(email, password){success, errorMessage->
+            // if(Routes.success){
+            navController.navigate(Routes.homescreen){
+                popUpTo(Routes.authscreen) {inclusive = true}
+            }
+            //}
+            //  else{
+            // AppUtil.showToast(context, errorMessage?:stringResource(id = R.string.signupscreen_error))
+            // }
         }, modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),

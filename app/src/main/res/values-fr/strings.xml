@@ -14,4 +14,5 @@
     <string name="loginscreen_text3">Créez-en un !</string>
     <string name="signupscreen_text3">Vous avez déjà un compte ?</string>
     <string name="signupscreen_text4">Connectez-vous!</string>
+    <string name="signupscreen_error">Quelque chose s\'est mal passé</string>
 </resources>
