@@ -19,12 +19,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     /*
     For testing purposes you can change the value of isLoggedIn
     to either true for when the the user is connected with Firebase
-    or to false when the user isn't connected
-    After the backed is completed change it
+    or to false when the user isn't connected.
+    After the backend is completed change it.
     Also change AuthViewModel, in viewmodel by removing the comments and it should work
     as well as the Signinscreen and Loginscreen Buttons, by removing the comments at the onClick
     */
-    val isLoggedIn = true //Change to:Firebase.auth.currentUser!=null
+    val isLoggedIn = false //Change to:Firebase.auth.currentUser!=null
     val fistPage = if(isLoggedIn) Routes.homescreen else Routes.authscreen
 
     NavHost(navController = navController, startDestination = fistPage, builder = {

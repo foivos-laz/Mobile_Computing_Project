@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Mobile Computing Assignment</string>
+    <string name="app_name">Univents</string>
     <string name="authscreen_text1">Your #1 app for all your university events!</string>
     <string name="authscreen_button1">Login</string>
-    <string name="authscreen_button2">Signup</string>
+    <string name="authscreen_button2">Sign Up</string>
     <string name="loginscreen_text1">Welcome Back!</string>
     <string name="loginscreen_textbox_email">Email address</string>
     <string name="loginscreen_textbox_password">Password</string>

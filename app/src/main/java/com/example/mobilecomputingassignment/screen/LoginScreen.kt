@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -146,7 +147,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
                 textAlign = TextAlign.Center,
                 style = TextStyle(
                     fontSize = 15.sp,
-                    color = Color(0xFFF87217)
+                    color = orange
                 )
             )
         }

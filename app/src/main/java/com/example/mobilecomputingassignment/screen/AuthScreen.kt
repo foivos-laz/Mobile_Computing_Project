@@ -80,7 +80,7 @@ fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController){
             .fillMaxWidth()
             .height(60.dp),
             colors = ButtonDefaults.buttonColors(
-               containerColor = Color.White,
+                containerColor = Color.Transparent,
                 contentColor = orange
         )) {
             Text(text = stringResource(id = R.string.authscreen_button2)
