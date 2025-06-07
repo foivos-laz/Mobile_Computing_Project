@@ -24,7 +24,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     Also change AuthViewModel, in viewmodel by removing the comments and it should work
     as well as the Signinscreen and Loginscreen Buttons, by removing the comments at the onClick
     */
-    val isLoggedIn = false //Change to:Firebase.auth.currentUser!=null
+    val isLoggedIn = true //Change to:Firebase.auth.currentUser!=null
     val fistPage = if(isLoggedIn) Routes.homescreen else Routes.authscreen
 
     NavHost(navController = navController, startDestination = fistPage, builder = {
@@ -38,7 +38,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             SignupScreen(modifier, navController)
         }
         composable(Routes.homescreen) {
-            HomeScreen(modifier)
+            HomeScreen(modifier, navController)
         }
     })
 }

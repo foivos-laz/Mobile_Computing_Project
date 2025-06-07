@@ -15,4 +15,11 @@
     <string name="signupscreen_text3">Vous avez déjà un compte ?</string>
     <string name="signupscreen_text4">Connectez-vous!</string>
     <string name="signupscreen_error">Quelque chose s\'est mal passé</string>
+    <string name="navbar_events">Événements</string>
+    <string name="navbar_clubs">Clubs</string>
+    <string name="navbar_account">Compte</string>
+    <string name="navbar_polls">Sondages</string>
+    <string name="accountpage_text1">Bienvenue sur votre compte,</string>
+    <string name="accountpage_text2">Vous souhaitez vous déconnecter ?</string>
+    <string name="accountpage_logout_button">Se déconnecter</string>
 </resources>

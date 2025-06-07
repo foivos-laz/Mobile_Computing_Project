@@ -80,8 +80,8 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
             text = stringResource(id = R.string.signupscreen_text2),
             modifier = Modifier.fillMaxWidth(),
             style = TextStyle(
-                fontSize = 22.sp
-               // fontFamily = FontFamily.Monospace
+                fontSize = 22.sp,
+                fontFamily = FontFamily.Monospace
             )
         )
 
