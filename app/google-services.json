@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045840215156",
+    "project_id": "mobile-computing-project-2270c",
+    "storage_bucket": "mobile-computing-project-2270c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045840215156:android:396c883a373fbbcc7e6521",
+        "android_client_info": {
+          "package_name": "com.example.mobilecomputingassignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkquZPDr-2p-4uOPD0z8jpUXS7iPsOwQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

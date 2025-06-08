@@ -8,7 +8,7 @@
     <string name="loginscreen_textbox_email">Adresse email</string>
     <string name="loginscreen_textbox_password">Mot de passe</string>
     <string name="signupscreen_textbox_fullname">Nom et prénom</string>
-    <string name="signupscreen_text1">Bonjour ! Enchanté de vous rencontrer !</string>
+    <string name="signupscreen_text1">Bonjour! Enchanté de vous rencontrer!</string>
     <string name="signupscreen_text2">Créer un compte</string>
     <string name="loginscreen_text2">Vous n\'avez pas de compte ?</string>
     <string name="loginscreen_text3">Créez-en un !</string>
@@ -22,4 +22,10 @@
     <string name="accountpage_text1">Bienvenue sur votre compte,</string>
     <string name="accountpage_text2">Vous souhaitez vous déconnecter ?</string>
     <string name="accountpage_logout_button">Se déconnecter</string>
+    <string name="accountpage_text3">Changez votre nom d\'utilisateur</string>
+    <string name="accountpage_text4">Changez votre adresse e-mail</string>
+    <string name="accountpage_text5">Changez votre mot de passe</string>
+    <string name="namechangescreen_text1">Bonjour ! Voulez-vous changer votre nom d\'utilisateur ?</string>
+    <string name="passwordchangescreen_text1">Bonjour ! Voulez-vous changer votre mot de passe ?</string>
+    <string name="emailchangescreen_text1">Bonjour ! Voulez-vous changer votre adresse e-mail ?</string>
 </resources>

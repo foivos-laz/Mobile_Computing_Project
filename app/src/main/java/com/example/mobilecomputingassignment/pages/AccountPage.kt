@@ -1,7 +1,10 @@
 package com.example.mobilecomputingassignment.pages
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,15 +14,17 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -28,34 +33,89 @@ import com.example.mobilecomputingassignment.Routes
 
 @Composable
 fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController) {
+
+    val orange = Color(0xFFF87217)
+
+    var enabled by remember {
+        mutableStateOf(true)
+    }
+
     Column(modifier = Modifier.fillMaxSize()
         .padding(32.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //This is for the Welcome message
-        Column (modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp)){
-            Text(text = stringResource(id = R.string.accountpage_text1),
+        /*
+        This is for the Welcome message.
+        Change the "Emma" with the actual name of the user
+        that is retrieved from Firebase.
+        */
+        Column (modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp)
+        ){
+            Text(text = stringResource(id = R.string.accountpage_text1) +" Emma",
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                )
-            )
-            //The name here is for testing reasons...
-            //must be replaced later with firebase call
-            Text(text = "Emma",
-                modifier = Modifier.fillMaxWidth(),
-                style = TextStyle(
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily.Monospace,
+                    fontSize = 30.sp,
+                    //fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold
                 )
             )
         }
 
-        Spacer(modifier = Modifier.height(520.dp))
+        Spacer(modifier = Modifier.height(100.dp))
+
+        //This is for the change details area of the page
+      Column (modifier = Modifier.fillMaxWidth(),
+          verticalArrangement = Arrangement.Center,
+          horizontalAlignment = Alignment.Start){
+          Text(
+              text = stringResource(id = R.string.accountpage_text3),
+              modifier = Modifier
+                  .clickable(enabled = enabled){
+                      enabled = false
+                      navController.navigate(Routes.namechangescreen)
+                  },
+              textAlign = TextAlign.Center,
+              style = TextStyle(
+                  fontSize = 20.sp,
+                  color = orange
+              )
+          )
+
+          Spacer(modifier = Modifier.height(20.dp))
+
+          Text(
+              text = stringResource(id = R.string.accountpage_text4),
+              modifier = Modifier
+                  .clickable(enabled = enabled){
+                      enabled = false
+                      navController.navigate(Routes.emailchangescreen)
+                  },
+              textAlign = TextAlign.Center,
+              style = TextStyle(
+                  fontSize = 20.sp,
+                  color = orange
+              )
+          )
+
+          Spacer(modifier = Modifier.height(20.dp))
+
+          Text(
+              text = stringResource(id = R.string.accountpage_text5),
+              modifier = Modifier
+                  .clickable(enabled = enabled){
+                      enabled = false
+                      navController.navigate(Routes.passwordhangescreen)
+                  },
+              textAlign = TextAlign.Center,
+              style = TextStyle(
+                  fontSize = 20.sp,
+                  color = orange
+              )
+          )
+      }
+
+        Spacer(modifier = Modifier.height(50.dp))
 
         //This handles the logout ui
         Column (modifier = Modifier.fillMaxWidth()){

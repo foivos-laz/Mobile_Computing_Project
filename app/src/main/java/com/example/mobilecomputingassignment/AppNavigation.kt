@@ -6,9 +6,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mobilecomputingassignment.screen.AuthScreen
+import com.example.mobilecomputingassignment.screen.EmailChangeScreen
 import com.example.mobilecomputingassignment.screen.HomeScreen
 import com.example.mobilecomputingassignment.screen.LoginScreen
+import com.example.mobilecomputingassignment.screen.NameChangeScreen
+import com.example.mobilecomputingassignment.screen.PasswordChangeScreen
 import com.example.mobilecomputingassignment.screen.SignupScreen
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 
 @Composable
@@ -24,7 +29,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     Also change AuthViewModel, in viewmodel by removing the comments and it should work
     as well as the Signinscreen and Loginscreen Buttons, by removing the comments at the onClick
     */
-    val isLoggedIn = true //Change to:Firebase.auth.currentUser!=null
+    val isLoggedIn = Firebase.auth.currentUser!=null
     val fistPage = if(isLoggedIn) Routes.homescreen else Routes.authscreen
 
     NavHost(navController = navController, startDestination = fistPage, builder = {
@@ -39,6 +44,15 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable(Routes.homescreen) {
             HomeScreen(modifier, navController)
+        }
+        composable(Routes.namechangescreen) {
+            NameChangeScreen(modifier, navController)
+        }
+        composable(Routes.emailchangescreen) {
+            EmailChangeScreen(modifier, navController)
+        }
+        composable(Routes.passwordhangescreen) {
+            PasswordChangeScreen(modifier, navController)
         }
     })
 }

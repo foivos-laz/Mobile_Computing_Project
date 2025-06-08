@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Univents</string>
     <string name="authscreen_text1">Your #1 app for all your university events!</string>
-    <string name="authscreen_button1">Logi n</string>
+    <string name="authscreen_button1">Log In</string>
     <string name="authscreen_button2">Sign Up</string>
     <string name="loginscreen_text1">Welcome Back!</string>
     <string name="loginscreen_textbox_email">Email address</string>
@@ -20,5 +20,11 @@
     <string name="navbar_polls">Polls</string>
     <string name="accountpage_text1">Welcome to your account,</string>
     <string name="accountpage_text2">Want to log out?</string>
-    <string name="accountpage_logout_button">Log out</string>
+    <string name="accountpage_logout_button">Log Out</string>
+    <string name="accountpage_text3">Change your username</string>
+    <string name="accountpage_text4">Change your email address</string>
+    <string name="accountpage_text5">Change your password</string>
+    <string name="namechangescreen_text1">Hi! Do you want to change your username?</string>
+    <string name="passwordchangescreen_text1">Hi! Do you want to change your password?</string>
+    <string name="emailchangescreen_text1">Hi! Do you want to change your email?</string>
 </resources>

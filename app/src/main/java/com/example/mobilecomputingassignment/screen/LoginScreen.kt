@@ -30,12 +30,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.viewmodel.AuthViewModel
 
@@ -46,7 +45,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
         mutableStateOf("")
     }
 
-    var passwrd by remember {
+    var password by remember {
         mutableStateOf("")
     }
 
@@ -88,9 +87,9 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
         Spacer(modifier = Modifier.height(10.dp))
 
         OutlinedTextField(
-            value = passwrd,
+            value = password,
             onValueChange = {
-                passwrd = it
+                password = it
             },
             label = {
                 Text(text = stringResource(id = R.string.loginscreen_textbox_password))
@@ -102,16 +101,16 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
         Spacer(modifier = Modifier.height(30.dp))
 
         Button(onClick = {
-            // authViewModel.login(email, password){success, errorMessage->
-            // if(Routes.success){
+            authViewModel.login(email, password){success, errorMessage->
+            if(success){
             navController.navigate(Routes.homescreen){
                 popUpTo(Routes.authscreen) {inclusive = true}
             }
-            //}
-            //  else{
-            // AppUtil.showToast(context, errorMessage?:stringResource(id = R.string.signupscreen_error))
-            // }
-        }, modifier = Modifier
+            }
+              else{
+             AppUtil.showToast(context, errorMessage?:"Something went wrong")
+
+        }}}, modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),
             colors = ButtonDefaults.buttonColors(
