@@ -1,10 +1,8 @@
 package com.example.mobilecomputingassignment.pages
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +12,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,9 +29,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.Routes
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 @Composable
-fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController) {
+fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController, name1: String) {
 
     val orange = Color(0xFFF87217)
 
@@ -45,14 +48,10 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController)
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        /*
-        This is for the Welcome message.
-        Change the "Emma" with the actual name of the user
-        that is retrieved from Firebase.
-        */
+
         Column (modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp)
         ){
-            Text(text = stringResource(id = R.string.accountpage_text1) +" Emma",
+            Text(text = stringResource(id = R.string.accountpage_text1) + " $name1",
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(
                     fontSize = 30.sp,
@@ -134,7 +133,7 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController)
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center){
                 OutlinedButton(onClick = {
-                    //Firebase.auth.signOut()
+                    Firebase.auth.signOut()
                     navController.navigate(Routes.authscreen){
                         popUpTo(Routes.homescreen){inclusive = true}
                     }

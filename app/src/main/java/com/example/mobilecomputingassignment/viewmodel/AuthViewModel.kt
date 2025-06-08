@@ -6,7 +6,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.model.UserModel
 
 class AuthViewModel : ViewModel() {
@@ -37,7 +36,7 @@ class AuthViewModel : ViewModel() {
                   if(it.isSuccessful){
                       var userId = it.result?.user?.uid
 
-                     val userModel = UserModel(name, email, userId!!)
+                     val userModel = UserModel(name, email, userId!!, password)
                      firestore.collection("users").document(userId)
                               .set(userModel)
                               .addOnCompleteListener { dbTask->

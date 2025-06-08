@@ -32,6 +32,7 @@ import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.viewmodel.AuthViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun PasswordChangeScreen(modifier: Modifier = Modifier, navController: NavHostController,authViewModel: AuthViewModel = viewModel()) {
@@ -85,7 +86,8 @@ fun PasswordChangeScreen(modifier: Modifier = Modifier, navController: NavHostCo
                         errorMessage ?: "Something went wrong"
                     )
                 }
-            }}, modifier = Modifier
+            }
+        }, modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),
             colors = ButtonDefaults.buttonColors(

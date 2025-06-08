@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Poll
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
@@ -28,6 +29,9 @@ import com.example.mobilecomputingassignment.pages.AccountPage
 import com.example.mobilecomputingassignment.pages.ClubsPage
 import com.example.mobilecomputingassignment.pages.EventPage
 import com.example.mobilecomputingassignment.pages.PollsPage
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
@@ -41,6 +45,17 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
 
     var selectedIndex by remember{
         mutableStateOf(0)
+    }
+
+    var name by remember {
+        mutableStateOf("")
+    }
+
+    LaunchedEffect(Unit) {
+        Firebase.firestore.collection("users").document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            .get().addOnCompleteListener {
+                name = it.result.get("name").toString().split(" ").get(0)
+            }
     }
 
     Scaffold(
@@ -66,7 +81,7 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
             }
         }
     ) {
-        ContentScreen(modifier = modifier.padding(it), selectedIndex,navController)
+        ContentScreen(modifier = modifier.padding(it), selectedIndex,navController, name)
     }
 }
 
@@ -74,13 +89,14 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
 fun ContentScreen(
     modifier: Modifier = Modifier,
     selectedIndex: Int,
-    navController: NavHostController
+    navController: NavHostController,
+    name : String
 ){
     when(selectedIndex){
         0-> EventPage(modifier)
         1-> ClubsPage(modifier)
         2-> PollsPage(modifier)
-        3-> AccountPage(modifier, navController)
+        3-> AccountPage(modifier, navController, name)
     }
 }
 
