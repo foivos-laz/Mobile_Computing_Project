@@ -45,8 +45,10 @@ fun EventsView(modifier: Modifier = Modifier) {
 
     LaunchedEffect(key1 = Unit) {
         Firebase.firestore.collection("events")
-            .get().addOnCompleteListener {
-                if(it.isSuccessful) {
+            .orderBy("date", com.google.firebase.firestore.Query.Direction.ASCENDING) // Sort by newest date
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
                     val result = it.result.documents.mapNotNull { doc ->
                         doc.toObject(EventModel::class.java)
                     }
