@@ -28,4 +28,15 @@
     <string name="namechangescreen_text1">Bonjour ! Voulez-vous changer votre nom d\'utilisateur ?</string>
     <string name="passwordchangescreen_text1">Bonjour ! Voulez-vous changer votre mot de passe ?</string>
     <string name="emailchangescreen_text1">Bonjour ! Voulez-vous changer votre adresse e-mail ?</string>
+    <string name="eventdetailspage_wheretext">Où:</string>
+    <string name="eventdetailspage_whentext">Quand:</string>
+    <string name="eventdetailspage_pricetext">Frais d\'inscription :</string>
+    <string name="eventdetailspage_hostebytext">Hébergé par :</string>
+    <string name="eventdetailspage_volunteertext">Cet organisateur d\'événements recherche des bénévoles ! Souhaitez-vous les aider ?</string>
+    <string name="eventdetailspage_registrationneeded">Cet événement nécessite une inscription. Souhaitez-vous vous inscrire ?</string>
+    <string name="eventdetailspage_availableseatstwext">Places disponibles :</string>
+    <string name="eventdetailspage_volunteerbutton">Inscrivez-vous pour aider</string>
+    <string name="eventdetailspage_register">Registre</string>
+    <string name="eventdetailspage_description">Description</string>
+    <string name="eventpagedetails_registerfull">Impossible de s\'inscrire. La liste des candidatures est pleine.</string>
 </resources>

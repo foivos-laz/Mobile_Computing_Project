@@ -27,4 +27,15 @@
     <string name="namechangescreen_text1">Hi! Do you want to change your username?</string>
     <string name="passwordchangescreen_text1">Hi! Do you want to change your password?</string>
     <string name="emailchangescreen_text1">Hi! Do you want to change your email?</string>
+    <string name="eventdetailspage_wheretext">Where:</string>
+    <string name="eventdetailspage_whentext">When:</string>
+    <string name="eventdetailspage_pricetext">Entry Fee:</string>
+    <string name="eventdetailspage_hostebytext">Hosted By:</string>
+    <string name="eventdetailspage_volunteertext">This event organizer is looking for volunteers! Do you wish to help them?</string>
+    <string name="eventdetailspage_registrationneeded">This is event requires registration. Do you want to register?</string>
+    <string name="eventdetailspage_availableseatstwext">Available seats:</string>
+    <string name="eventdetailspage_volunteerbutton">Volunteer</string>
+    <string name="eventdetailspage_register">Register</string>
+    <string name="eventdetailspage_description">Description</string>
+    <string name="eventpagedetails_registerfull">Cannot register. Application list is full.</string>
 </resources>

@@ -20,10 +20,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.mobilecomputingassignment.R
+import com.example.mobilecomputingassignment.components.EventsView
 
 @Composable
-@Preview
 fun EventPage(modifier: Modifier = Modifier) {
     val orange = Color(0xFFF87217)
 
@@ -44,10 +45,10 @@ fun EventPage(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(
                     fontSize = 30.sp,
-                    //fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold
                 )
             )
         }
+        EventsView(modifier)
     }
 }
