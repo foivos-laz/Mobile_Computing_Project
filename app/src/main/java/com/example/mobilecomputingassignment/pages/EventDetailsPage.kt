@@ -1,5 +1,6 @@
 package com.example.mobilecomputingassignment.pages
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -79,22 +80,55 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
     val currentUser = auth.currentUser
     val currentUserId = currentUser?.uid!!
 
+    val hostingClubsState = remember { mutableStateOf<List<ClubModel>>(emptyList()) }
+
     LaunchedEffect(event.id) {
-        if (event.id?.isNotEmpty() == true) {
-            val eventSnapshot = db.collection("events").document(event.id!!).get().await()
-            val hostedByIds = eventSnapshot.get("hostedBy") as? List<String> ?: emptyList()
+        if (!event.id.isNullOrEmpty()) {
+            try {
+                val eventSnapshot = db.collection("events").document(event.id!!).get().await()
+                val hostedByIds = eventSnapshot.get("hostedBy") as? List<String> ?: emptyList()
 
-            val loadedClubs = mutableListOf<ClubModel>()
-            for (id in hostedByIds) {
-                val doc = db.collection("clubs").document(id).get().await()
-                val club = doc.toObject(ClubModel::class.java)
-                if (club != null) {
-                    club.id = doc.id
-                    loadedClubs.add(club)
+                Log.d("EventDetails", "Host IDs: $hostedByIds")
+
+                val loadedClubs = mutableListOf<ClubModel>()
+                for (id in hostedByIds) {
+                    val doc = db.collection("clubs").document(id).get().await()
+                    if (doc.exists()) {
+                        val club = doc.toObject(ClubModel::class.java)
+                        if (club != null) {
+                            club.id = doc.id
+                            loadedClubs.add(club)
+                            Log.d("EventDetails", "Loaded club: ${club.name}")
+                        }
+                    } else {
+                        Log.w("EventDetails", "Club doc $id does not exist")
+                    }
                 }
-            }
 
-            hostingClubs = loadedClubs
+                hostingClubsState.value = loadedClubs
+
+            } catch (e: Exception) {
+                Log.e("EventDetails", "Failed to load hosting clubs", e)
+            }
+        }
+        if (event.id?.isNotEmpty() == true) {
+            val eventRef = db.collection("events").document(event.id!!)
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(eventRef)
+                val hostedBy = snapshot.get("hostedBy") as? List<String> ?: emptyList()
+
+                for (clubId in hostedBy) {
+                    val clubRef = db.collection("clubs").document(clubId)
+                    val clubSnapshot = transaction.get(clubRef)
+                    if (clubSnapshot.exists()) {
+                        transaction.update(clubRef, "eventList", FieldValue.arrayUnion(event.id))
+                    }
+                }
+            }.addOnSuccessListener {
+                Log.d("EventDetails", "Event ID ${event.id} added to hosting clubs' eventLists.")
+            }.addOnFailureListener { e ->
+                Log.e("EventDetails", "Failed to add event to clubs: ${e.message}")
+            }
         }
     }
 
@@ -223,6 +257,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 // Host Information
+                val hostingClubs = hostingClubsState.value
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.Center,
@@ -234,6 +269,10 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
+
+                    if (hostingClubs.isEmpty()) {
+                        Text("No hosts available")
+                    }
 
                     for (club in hostingClubs) {
                         Text(
