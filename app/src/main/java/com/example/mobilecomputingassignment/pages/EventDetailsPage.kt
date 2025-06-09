@@ -332,7 +332,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                                 containerColor = Color(0xFFF87217),
                                 contentColor = Color.White)){
                             Text(text = stringResource(id = R.string.eventdetailspage_commentsbutton), fontSize = 22.sp,
-                                fontWeight = FontWeight.Thin)
+                                fontWeight = FontWeight.Normal)
                         }
                     }
 
