@@ -40,4 +40,5 @@
     <string name="accountpage_noregistredevents_tex">You haven\'t registered for any events</string>
     <string name="accountpage_volunteeringin_text">Volunteering in:</string>
     <string name="accountpage_notvolunteering_text">You are not volunteering in any events</string>
+    <string name="eventdetailspage_pricefree_text">Free</string>
 </resources>

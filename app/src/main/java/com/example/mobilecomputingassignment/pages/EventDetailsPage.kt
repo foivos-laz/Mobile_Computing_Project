@@ -264,13 +264,22 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                                 ))
 
                             Spacer(modifier = Modifier.width(10.dp))
-
-                            Text(text = event.price.toString(), modifier = Modifier,
-                                style = TextStyle(
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = Color(0xFFF87217)
-                                ))
+                            if(event.price > 0.0 ){
+                                Text(text = event.price.toString(), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Color(0xFFF87217)
+                                    ))
+                            }
+                            else {
+                                Text(text = stringResource(id = R.string.eventdetailspage_pricefree_text), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Color(0xFFF87217)
+                                    ))
+                            }
                         }
                     }
 

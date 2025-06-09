@@ -41,4 +41,5 @@
     <string name="accountpage_noregistredevents_tex">Vous n\'êtes inscrit à aucun événement</string>
     <string name="accountpage_volunteeringin_text">Bénévolat dans :</string>
     <string name="accountpage_notvolunteering_text">Vous ne participez pas bénévolement à des événements</string>
+    <string name="eventdetailspage_pricefree_text">Gratuit</string>
 </resources>
