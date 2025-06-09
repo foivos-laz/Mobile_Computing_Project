@@ -41,4 +41,6 @@
     <string name="accountpage_volunteeringin_text">Volunteering in:</string>
     <string name="accountpage_notvolunteering_text">You are not volunteering in any events</string>
     <string name="eventdetailspage_pricefree_text">Free</string>
+    <string name="clubdetailspage_nohostedevents_text">This club doesn\'t host any events</string>
+    <string name="clubdetailpage_hostedevents_text">Hosted events:</string>
 </resources>

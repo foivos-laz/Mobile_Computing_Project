@@ -190,16 +190,16 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                             .background(Color(0xFFF87217), shape = RoundedCornerShape(5.dp)).fillMaxWidth(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
-                                fontSize = 20.sp,
+                                fontSize = 22.sp,
                                 fontWeight = FontWeight.SemiBold,
                             ))
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                        //Spacer(modifier = Modifier.height(10.dp))
 
                         Text(text = event.description, modifier = Modifier.padding(10.dp),
                             textAlign = TextAlign.Justify,
                             style = TextStyle(
-                                fontSize = 15.sp,
+                                fontSize = 20.sp,
                                 fontWeight = FontWeight.Normal
 
                             ))

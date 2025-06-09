@@ -7,4 +7,5 @@ object Routes {
     var homescreen = "HomeScreen"
     var namechangescreen = "NameChangeScreen"
     var eventdetailspage = "EventDetailsPage"
+    var clubdetailspage = "ClubDetailsPage"
 }
