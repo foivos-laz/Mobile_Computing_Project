@@ -64,30 +64,4 @@ class AuthViewModel : ViewModel() {
                 }
         }
     }
-
-        fun updateEmail(newEmail: String, onResult:(Boolean, String?)-> Unit) {
-            uid?.let {
-                db.collection("users").document(it)
-                    .update("email", newEmail)
-                    .addOnSuccessListener {
-                        onResult(true, null)
-                    }
-                    .addOnFailureListener {
-                        onResult(false, "Something went wrong")
-                    }
-            }
-    }
-
-    fun updatePassword(newPassword: String, onResult:(Boolean, String?)-> Unit) {
-        uid?.let {
-            db.collection("users").document(it)
-                .update("password", newPassword)
-                .addOnSuccessListener {
-                    onResult(true, null)
-                }
-                .addOnFailureListener {
-                    onResult(false, "Something went wrong")
-                }
-        }
-    }
 }

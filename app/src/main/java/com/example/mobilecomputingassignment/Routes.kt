@@ -6,7 +6,5 @@ object Routes {
     var signupscreen = "SignupScreen"
     var homescreen = "HomeScreen"
     var namechangescreen = "NameChangeScreen"
-    var passwordhangescreen = "EmailChangeScreen"
-    var emailchangescreen = "PasswordChangeScreen"
     var eventdetailspage = "EventDetailsPage"
 }

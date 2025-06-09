@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.Routes
+import com.example.mobilecomputingassignment.components.EventsAccountView
+import com.example.mobilecomputingassignment.components.EventsAccountVolunteeringView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -61,60 +63,63 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
             )
         }
 
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        //This is for the change details area of the page
-      Column (modifier = Modifier.fillMaxWidth(),
-          verticalArrangement = Arrangement.Center,
-          horizontalAlignment = Alignment.Start){
-          Text(
-              text = stringResource(id = R.string.accountpage_text3),
-              modifier = Modifier
-                  .clickable(enabled = enabled){
-                      enabled = false
-                      navController.navigate(Routes.namechangescreen)
-                  },
-              textAlign = TextAlign.Center,
-              style = TextStyle(
-                  fontSize = 20.sp,
-                  color = orange
-              )
-          )
+        //This area handles the registered events
+        Column (modifier = Modifier.fillMaxWidth()){
+            Text(text = stringResource(id = R.string.accountpage_registredevents_text),
+                modifier = Modifier.fillMaxWidth(),
+                //textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold
+                ))
 
-          Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-          Text(
-              text = stringResource(id = R.string.accountpage_text4),
-              modifier = Modifier
-                  .clickable(enabled = enabled){
-                      enabled = false
-                      navController.navigate(Routes.emailchangescreen)
-                  },
-              textAlign = TextAlign.Center,
-              style = TextStyle(
-                  fontSize = 20.sp,
-                  color = orange
-              )
-          )
+            EventsAccountView(modifier)
+        }
 
-          Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-          Text(
-              text = stringResource(id = R.string.accountpage_text5),
-              modifier = Modifier
-                  .clickable(enabled = enabled){
-                      enabled = false
-                      navController.navigate(Routes.passwordhangescreen)
-                  },
-              textAlign = TextAlign.Center,
-              style = TextStyle(
-                  fontSize = 20.sp,
-                  color = orange
-              )
-          )
-      }
+        //This area handles the volunteering events
+        Column (modifier = Modifier.fillMaxWidth()){
+            Text(text = stringResource(id = R.string.accountpage_volunteeringin_text),
+                modifier = Modifier.fillMaxWidth(),
+                //textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold
+                ))
 
-        Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+
+            EventsAccountVolunteeringView(modifier)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        //This is for the change username area of the page
+        Column (modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally){
+            Text(
+                text = stringResource(id = R.string.accountpage_text3),
+                modifier = Modifier
+                    .clickable(enabled = enabled){
+                        enabled = false
+                        navController.navigate(Routes.namechangescreen)
+                    },
+                textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    color = orange
+                )
+            )
+
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         //This handles the logout ui
         Column (modifier = Modifier.fillMaxWidth()){

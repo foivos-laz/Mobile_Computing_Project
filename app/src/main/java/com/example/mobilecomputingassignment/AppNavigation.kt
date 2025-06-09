@@ -9,11 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mobilecomputingassignment.model.EventModel
 import com.example.mobilecomputingassignment.pages.EventDetailsPage
 import com.example.mobilecomputingassignment.screen.AuthScreen
-import com.example.mobilecomputingassignment.screen.EmailChangeScreen
 import com.example.mobilecomputingassignment.screen.HomeScreen
 import com.example.mobilecomputingassignment.screen.LoginScreen
 import com.example.mobilecomputingassignment.screen.NameChangeScreen
-import com.example.mobilecomputingassignment.screen.PasswordChangeScreen
 import com.example.mobilecomputingassignment.screen.SignupScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -52,12 +50,6 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable(Routes.namechangescreen) {
             NameChangeScreen(modifier, navController)
-        }
-        composable(Routes.emailchangescreen) {
-            EmailChangeScreen(modifier, navController)
-        }
-        composable(Routes.passwordhangescreen) {
-            PasswordChangeScreen(modifier, navController)
         }
         composable(Routes.eventdetailspage+"{uid}") {
             var eventID = it.arguments?.getString("uid")

@@ -22,11 +22,7 @@
     <string name="accountpage_text2">Want to log out?</string>
     <string name="accountpage_logout_button">Log Out</string>
     <string name="accountpage_text3">Change your username</string>
-    <string name="accountpage_text4">Change your email address</string>
-    <string name="accountpage_text5">Change your password</string>
     <string name="namechangescreen_text1">Hi! Do you want to change your username?</string>
-    <string name="passwordchangescreen_text1">Hi! Do you want to change your password?</string>
-    <string name="emailchangescreen_text1">Hi! Do you want to change your email?</string>
     <string name="eventdetailspage_wheretext">Where:</string>
     <string name="eventdetailspage_whentext">When:</string>
     <string name="eventdetailspage_pricetext">Entry Fee:</string>
@@ -38,4 +34,10 @@
     <string name="eventdetailspage_register">Register</string>
     <string name="eventdetailspage_description">Description</string>
     <string name="eventpagedetails_registerfull">Cannot register. Application list is full.</string>
+    <string name="eventdetailspage_commentstext">Click here to leave a comment and to see what comments other users have left!</string>
+    <string name="eventdetailspage_commentsbutton">Comments</string>
+    <string name="accountpage_registredevents_text">Registred events:</string>
+    <string name="accountpage_noregistredevents_tex">You haven\'t registered for any events</string>
+    <string name="accountpage_volunteeringin_text">Volunteering in:</string>
+    <string name="accountpage_notvolunteering_text">You are not volunteering in any events</string>
 </resources>
