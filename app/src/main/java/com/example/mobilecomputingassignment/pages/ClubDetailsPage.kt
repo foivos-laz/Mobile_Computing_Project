@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.components.ClubsHostedEvents
@@ -108,6 +110,20 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
                 Column( modifier = Modifier.padding(20.dp)
                     ,verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally) {
+                    //Image
+                    if(club.imageURL != ""){
+                        AsyncImage(
+                            model = club.imageURL,
+                            contentDescription = "Image of the event",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .width(100.dp)
+                                .height(100.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+
                     //Description
                     Column(modifier = Modifier.fillMaxWidth()
                         .background(Color(0xFFE3A370), shape = RoundedCornerShape(10.dp)),

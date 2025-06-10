@@ -4,5 +4,6 @@ data class ClubModel(
     val description : String = "",
     var eventList : List<String> = emptyList(),
     var id : String = "",
+    var imageURL : String = "",
     val name : String = ""
 )

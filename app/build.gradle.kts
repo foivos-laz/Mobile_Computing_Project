@@ -64,6 +64,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-common-ktx")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
 
     val nav_version = "2.9.0"

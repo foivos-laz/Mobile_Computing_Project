@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.model.ClubModel
@@ -181,6 +183,20 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                 Column( modifier = Modifier.padding(10.dp)
                     ,verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally) {
+                    //Image
+                    if(event.imageURL != ""){
+                        AsyncImage(
+                            model = event.imageURL,
+                            contentDescription = "Image of the event",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(250.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+
                     //Description
                     Column(modifier = Modifier.fillMaxWidth()
                         .background(Color(0xFFE3A370), shape = RoundedCornerShape(10.dp)),
@@ -317,7 +333,9 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                     }
 
                     //Spacer(modifier = Modifier.weight(1f))
-                    Spacer(modifier = Modifier.height(80.dp))
+                    //Spacer(modifier = Modifier.height(80.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
+
 
                     //Comments Button
                     Column(modifier = Modifier.fillMaxWidth(),

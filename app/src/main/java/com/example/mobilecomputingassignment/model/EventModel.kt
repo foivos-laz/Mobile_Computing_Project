@@ -9,6 +9,7 @@ data class EventModel(
     val description : String = "",
     var hostedBy : List<String> = emptyList(),
     var id : String = "",
+    var imageURL : String = "",
     val location : String = "",
     val name : String = "",
     val needRegistration : Boolean = false,
