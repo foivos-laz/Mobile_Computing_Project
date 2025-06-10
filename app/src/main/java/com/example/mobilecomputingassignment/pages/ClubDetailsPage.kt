@@ -1,6 +1,5 @@
 package com.example.mobilecomputingassignment.pages
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,12 +14,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,20 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.components.ClubsHostedEvents
-import com.example.mobilecomputingassignment.components.EventsAccountVolunteeringView
 import com.example.mobilecomputingassignment.model.ClubModel
-import com.example.mobilecomputingassignment.model.EventModel
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.tasks.await
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Composable
 fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
@@ -74,7 +61,7 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
             }
     }
 
-    var context = LocalContext.current
+    LocalContext.current
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(32.dp),

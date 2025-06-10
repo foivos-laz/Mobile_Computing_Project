@@ -12,7 +12,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,9 +32,7 @@ import com.example.mobilecomputingassignment.components.EventsAccountView
 import com.example.mobilecomputingassignment.components.EventsAccountVolunteeringView
 import com.example.mobilecomputingassignment.components.EventsInterestedAccountView
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
 
 @Composable
 fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController, name1: String) {

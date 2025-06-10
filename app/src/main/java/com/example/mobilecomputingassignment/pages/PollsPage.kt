@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,11 +19,7 @@ import com.example.mobilecomputingassignment.R
 
 @Composable
 fun PollsPage(modifier: Modifier = Modifier) {
-    val orange = Color(0xFFF87217)
-
-    var enabled by remember {
-        mutableStateOf(true)
-    }
+    Color(0xFFF87217)
 
     Column(modifier = Modifier.fillMaxSize()
         .padding(32.dp),
