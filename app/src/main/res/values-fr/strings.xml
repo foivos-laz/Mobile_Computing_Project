@@ -44,4 +44,9 @@
     <string name="eventdetailspage_pricefree_text">Gratuit</string>
     <string name="clubdetailspage_nohostedevents_text">Ce club n\'organise aucun événement</string>
     <string name="clubdetailpage_hostedevents_text">Événements organisés :</string>
+    <string name="clubdetailpage_campus_text">Campus:</string>
+    <string name="accountpage_interestedevents_text">Événements pour lesquels vous êtes intéressé:</string>
+    <string name="accountpage_nointerestedevents_text">Vous n\'avez aucun événement qui vous intéresse</string>
+    <string name="eventdetailspage_interestedtext">Si vous souhaitez vous souvenir de cet événement, vous pouvez l\'ajouter à votre calendrier et à votre collection d\'événements qui vous intéressent!</string>
+    <string name="eventdetailspage_interested_button">Je suis intéressé</string>
 </resources>

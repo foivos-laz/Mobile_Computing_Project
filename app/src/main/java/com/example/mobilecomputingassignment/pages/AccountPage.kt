@@ -31,6 +31,7 @@ import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.components.EventsAccountView
 import com.example.mobilecomputingassignment.components.EventsAccountVolunteeringView
+import com.example.mobilecomputingassignment.components.EventsInterestedAccountView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -63,7 +64,24 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
             )
         }
 
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
+        //This area handles the interested for events
+        Column (modifier = Modifier.fillMaxWidth()){
+            Text(text = stringResource(id = R.string.accountpage_interestedevents_text),
+                modifier = Modifier.fillMaxWidth(),
+                //textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold
+                ))
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            EventsInterestedAccountView(modifier)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         //This area handles the registered events
         Column (modifier = Modifier.fillMaxWidth()){
@@ -97,7 +115,7 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
             EventsAccountVolunteeringView(modifier)
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //This is for the change username area of the page
         Column (modifier = Modifier.fillMaxWidth(),
@@ -119,7 +137,7 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
 
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //This handles the logout ui
         Column (modifier = Modifier.fillMaxWidth()){

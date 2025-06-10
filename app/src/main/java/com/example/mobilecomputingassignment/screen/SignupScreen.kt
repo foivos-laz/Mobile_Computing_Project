@@ -61,6 +61,8 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
 
     val orange = Color(0xFFF87217)
 
+    val eventsInterestedFor : List<String> = emptyList()
+
     Column(modifier = Modifier.fillMaxSize()
         .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -129,7 +131,7 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavHostController
 
         Button(
             onClick = {
-               authViewModel.signup(email, name, password){success, errorMessage->
+               authViewModel.signup(email, name, password, eventsInterestedFor){success, errorMessage->
                 if(success){
                     navController.navigate(Routes.homescreen){
                         popUpTo(Routes.authscreen) {inclusive = true}

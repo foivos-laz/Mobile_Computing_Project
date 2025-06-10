@@ -44,4 +44,9 @@
     <string name="eventdetailspage_pricefree_text">Free</string>
     <string name="clubdetailspage_nohostedevents_text">This club doesn\'t host any events</string>
     <string name="clubdetailpage_hostedevents_text">Hosted events:</string>
+    <string name="clubdetailpage_campus_text">Campus:</string>
+    <string name="accountpage_interestedevents_text">Events Interested for:</string>
+    <string name="accountpage_nointerestedevents_text">You don\'t have any events that you are interested for</string>
+    <string name="eventdetailspage_interestedtext">If you are interested to remember this event you can add it to your calendar and your collection of events that you are interested for!</string>
+    <string name="eventdetailspage_interested_button">I am Interested</string>
 </resources>

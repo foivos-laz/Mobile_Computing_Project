@@ -1,12 +1,18 @@
 package com.example.mobilecomputingassignment.pages
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.provider.CalendarContract
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -34,7 +38,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -44,11 +47,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.model.ClubModel
 import com.example.mobilecomputingassignment.model.EventModel
+import com.example.mobilecomputingassignment.model.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -57,6 +62,7 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 @Composable
 fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
@@ -78,6 +84,20 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
     }
 
     var context = LocalContext.current
+
+   //To get permission to write to calendar
+    val requestPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val granted = permissions.entries.all { it.value }
+        if (granted) {
+            // Permissions granted, now try to add the event
+            addEventToCalendar(context, event)
+        } else {
+            // Permissions denied
+            Toast.makeText(context, "Calendar permissions denied.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
@@ -336,6 +356,58 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                     //Spacer(modifier = Modifier.height(80.dp))
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    //Interested Button
+                    Column(modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally){
+                        Text(text = stringResource(id = R.string.eventdetailspage_interestedtext), modifier = Modifier,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Normal
+                            ))
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Button(onClick = {
+                            FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(currentUser.uid)
+                                .update("eventsInterestedFor", FieldValue.arrayUnion(event.id))
+
+                            if (ContextCompat.checkSelfPermission(
+                                    context,
+                                    Manifest.permission.WRITE_CALENDAR
+                                ) == PackageManager.PERMISSION_GRANTED &&
+                                ContextCompat.checkSelfPermission(
+                                    context,
+                                    Manifest.permission.READ_CALENDAR
+                                ) == PackageManager.PERMISSION_GRANTED
+                            ) {
+                                // Permissions already granted, proceed directly
+                                addEventToCalendar(context, event)
+                            } else {
+                                // Permissions not granted, launch the request
+                                // This call is now safe because requestPermissionLauncher is initialized
+                                requestPermissionLauncher.launch(
+                                    arrayOf(
+                                        Manifest.permission.WRITE_CALENDAR,
+                                        Manifest.permission.READ_CALENDAR
+                                    )
+                                )
+                            }
+                        },modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF87217),
+                                contentColor = Color.White)){
+                            Text(text = stringResource(id = R.string.eventdetailspage_interested_button), fontSize = 22.sp,
+                                fontWeight = FontWeight.Normal)
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     //Comments Button
                     Column(modifier = Modifier.fillMaxWidth(),
@@ -497,5 +569,37 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                 }
             }
         }
+    }
+}
+
+fun addEventToCalendar(context: Context, event: EventModel) {
+    // Convert Firebase Timestamp to milliseconds for calendar event
+    val startMillis = event.date.toDate().time
+
+    // Optionally, define event duration (e.g., 1 hour)
+    val durationMillis = 60 * 60 * 1000  // 1 hour in milliseconds
+    val endMillis = startMillis + durationMillis
+
+    val intent = Intent(Intent.ACTION_INSERT).apply {
+        data = CalendarContract.Events.CONTENT_URI
+        putExtra(CalendarContract.Events.TITLE, event.name)
+        putExtra(CalendarContract.Events.EVENT_LOCATION, event.location)
+        putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)
+        putExtra(CalendarContract.Events.DESCRIPTION, event.description)
+    }
+
+    Log.d("CalendarEvent", "Attempting to add event: ${event.name}")
+    Log.d("CalendarEvent", "Start Time: $startMillis, End Time: $endMillis")
+
+    // Verify there's an app to handle this intent before launching
+    if (intent.resolveActivity(context.packageManager) != null) {
+        Log.d("CalendarEvent", "Calendar app found, launching intent.")
+        context.startActivity(intent)
+        Toast.makeText(context, "Opening calendar app...", Toast.LENGTH_SHORT).show()
+
+    } else {
+        // Handle the case where no calendar app is installed
+        // e.g. show a Toast or Snackbar
+        Toast.makeText(context, "No calendar app was found", Toast.LENGTH_SHORT).show()
     }
 }

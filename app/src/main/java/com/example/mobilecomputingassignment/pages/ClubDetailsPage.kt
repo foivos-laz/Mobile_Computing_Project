@@ -150,6 +150,31 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    //Campus where the club is at
+                    Column(modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally){
+                        Row(modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically){
+                            Text(text = stringResource(id = R.string.clubdetailpage_campus_text), modifier = Modifier,
+                                style = TextStyle(
+                                    fontSize = 20.sp,
+                                ))
+
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            Text(text = club.campus, modifier = Modifier,
+                                style = TextStyle(
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFFF87217)
+                                ))
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     //The events list hosted by the club
                     Column (modifier = Modifier.fillMaxWidth()){
                         Text(text = stringResource(id = R.string.clubdetailpage_hostedevents_text),
