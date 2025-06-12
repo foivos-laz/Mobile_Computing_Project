@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mobilecomputingassignment.model.EventModel
 import com.example.mobilecomputingassignment.pages.ClubDetailsPage
+import com.example.mobilecomputingassignment.pages.CommentsPage
 import com.example.mobilecomputingassignment.pages.EventDetailsPage
 import com.example.mobilecomputingassignment.screen.AuthScreen
 import com.example.mobilecomputingassignment.screen.HomeScreen
@@ -59,6 +59,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable(Routes.clubdetailspage+"{uid}") {
             var clubID = it.arguments?.getString("uid")
             ClubDetailsPage(modifier, clubID?:"")
+        }
+        composable(Routes.commentspage+"{uid}") {
+            var eventID = it.arguments?.getString("uid")
+            CommentsPage(modifier, eventID?:"")
         }
     })
 }

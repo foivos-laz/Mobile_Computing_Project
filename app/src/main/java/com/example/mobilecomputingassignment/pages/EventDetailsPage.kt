@@ -50,7 +50,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import com.example.mobilecomputingassignment.AppUtil
+import com.example.mobilecomputingassignment.GlobalNavigation
 import com.example.mobilecomputingassignment.R
+import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.model.ClubModel
 import com.example.mobilecomputingassignment.model.EventModel
 import com.google.firebase.Firebase
@@ -422,7 +424,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Button(onClick = {
-
+                            GlobalNavigation.navController.navigate(Routes.commentspage+event.id)
                         },modifier = Modifier
                             .fillMaxWidth()
                             .height(60.dp),
