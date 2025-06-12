@@ -2,6 +2,7 @@ package com.example.mobilecomputingassignment.components
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,20 +13,27 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import com.example.mobilecomputingassignment.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobilecomputingassignment.model.CommentModel
+import com.example.mobilecomputingassignment.model.ReportModel
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -62,7 +70,32 @@ fun CommentsView(modifier: Modifier = Modifier, eventID : String) {
 
     LazyColumn {
         items(commentsList.value){item->
-            if(item.comment == "" && item.userName == "" && item.userID == ""){
+            val db = FirebaseFirestore.getInstance()
+            val reportsRef = db.collection("reports")
+
+            var tooManyReports by remember {
+                mutableStateOf(false)
+            }
+
+            reportsRef
+                .whereEqualTo("idOfReportedItem", item.id)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    if (!querySnapshot.isEmpty) {
+                        // Found an existing report
+                        val document = querySnapshot.documents[0]
+                        val currentAmount = document.getLong("reportAmount") ?: 0
+                        Log.e("Error", "Amount of reports for comment:"+item.id+" ,is: "+currentAmount)
+
+                        if(currentAmount >= 15){
+                            tooManyReports = true
+                        }
+                    }
+                }
+            if((item.comment == "" && item.userName == "" && item.userID == "")){
+                null
+            }
+            else if(tooManyReports == true){
                 null
             }
             else{
@@ -80,6 +113,9 @@ fun CommentItem(comment : CommentModel){
     val formatter = SimpleDateFormat("yyyy-MM-dd, HH:mm", Locale.getDefault())
     val formattedDate = formatter.format(date)
 
+    var enabled by remember {
+        mutableStateOf(true)
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -121,6 +157,61 @@ fun CommentItem(comment : CommentModel){
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Normal
+
+            )
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = stringResource(id = R.string.commentsview_report_text), modifier = Modifier.padding(10.dp, 0.dp)
+                .clickable(enabled = enabled){
+                    val db = FirebaseFirestore.getInstance()
+                    val reportsRef = db.collection("reports")
+
+                    reportsRef
+                        .whereEqualTo("idOfReportedItem", comment.id)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            if (!querySnapshot.isEmpty) {
+                                // Found an existing report
+                                val document = querySnapshot.documents[0]
+                                val currentAmount = document.getLong("reportAmount") ?: 0
+                                val updatedAmount = currentAmount + 1
+
+                                document.reference.update("reportAmount", updatedAmount)
+                                    .addOnSuccessListener {
+                                        Log.d("Report", "Report updated successfully.")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e("Report", "Failed to update report: ${e.message}")
+                                    }
+                            } else {
+                                // No existing report found, create a new one
+                                val newReport = ReportModel(
+                                    idOfReportedItem = comment.id,
+                                    reportAmount = 1
+                                )
+
+                                reportsRef.add(newReport)
+                                    .addOnSuccessListener {
+                                        Log.d("Report", "New report created successfully.")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e("Report", "Failed to create new report: ${e.message}")
+                                    }
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Report", "Failed to fetch reports: ${e.message}")
+                        }
+                },
+            textAlign = TextAlign.Start,
+            style = TextStyle(
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Normal,
+                color = Color.White,
+                textDecoration = TextDecoration.Underline
 
             )
         )

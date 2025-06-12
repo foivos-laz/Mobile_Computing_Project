@@ -63,4 +63,6 @@
     <string name="eventsdetailspage_nomoreavailableseats">No more available seats</string>
     <string name="eventsdetailspage_volunteersuccessfulregistration_toast">You are now registered to volunteer!</string>
     <string name="eventdetailspage_alreadyvolunteer_toast">You are already registered to volunteer in this event</string>
+    <string name="commentspage_disallowedword_toast">Your comment contains a disallowed word. Please try again.</string>
+    <string name="commentsview_report_text">Report</string>
 </resources>

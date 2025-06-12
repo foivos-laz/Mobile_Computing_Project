@@ -40,6 +40,7 @@ import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.components.CommentsView
 import com.example.mobilecomputingassignment.model.CommentModel
+import com.example.mobilecomputingassignment.model.DisallowedWordsModel
 import com.example.mobilecomputingassignment.model.EventModel
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
@@ -62,7 +63,13 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
         mutableStateOf("")
     }
 
+    var disallowedWordsList = remember {
+        mutableStateOf<List<DisallowedWordsModel>>(emptyList())
+    }
+
     val context = LocalContext.current
+
+    val toastDisallowedWord : String = stringResource(R.string.commentspage_disallowedword_toast)
 
     val toastSuccess = stringResource(id = R.string.commentpage_toast1)
     val toastFail = stringResource(id = R.string.commentpage_toast2)
@@ -84,6 +91,16 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
                         event = result
                     }
                 }
+            }
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        Firebase.firestore.collection("forbiddenWords").get()
+            .addOnCompleteListener {
+                val result = it.result.documents.mapNotNull { doc ->
+                    doc.toObject(DisallowedWordsModel::class.java)
+                }
+                disallowedWordsList.value = result
             }
     }
 
@@ -171,24 +188,39 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
                                 val currentUser = Firebase.auth.currentUser
                                 val currentUserId = currentUser?.uid!!
 
-                                var commentModel = CommentModel(inputText, Timestamp.now(), currentUserId, name)
-
                                 val commentID = Firebase.firestore.collection("events")
                                     .document(eventID).collection("comments").document().id
 
+                                var commentModel = CommentModel(inputText, commentID, Timestamp.now(), currentUserId, name)
+
                                 val db = FirebaseFirestore.getInstance()
 
-                                db.collection("events").document(eventID)
-                                    .collection("comments").document(commentID)
-                                    .set(commentModel)
-                                    .addOnSuccessListener {
-                                        AppUtil.showToast(context, toastSuccess)
-                                    }
-                                    .addOnFailureListener {
-                                        AppUtil.showToast(context, toastFail)
-                                    }
+                                var containsDisallowedWord : Boolean = false
 
-                                showDialog = false
+                                //Checks if all words in disallowed word list are contained in
+                                //the comment
+                                for(item in disallowedWordsList.value){
+                                    if(inputText.contains(item.word, ignoreCase = true)){
+                                        containsDisallowedWord = true
+                                    }
+                                }
+
+                                if(containsDisallowedWord == false){
+                                    db.collection("events").document(eventID)
+                                        .collection("comments").document(commentID)
+                                        .set(commentModel)
+                                        .addOnSuccessListener {
+                                            AppUtil.showToast(context, toastSuccess)
+                                        }
+                                        .addOnFailureListener {
+                                            AppUtil.showToast(context, toastFail)
+                                        }
+
+                                    showDialog = false
+                                }
+                                else{
+                                    AppUtil.showToast(context,toastDisallowedWord)
+                                }
                             },
                             modifier = Modifier.align(Alignment.CenterHorizontally),
                             colors = ButtonDefaults.buttonColors(

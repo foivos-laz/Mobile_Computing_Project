@@ -63,4 +63,6 @@
     <string name="eventsdetailspage_nomoreavailableseats">Plus de places disponibles</string>
     <string name="eventsdetailspage_volunteersuccessfulregistration_toast">Vous êtes maintenant inscrit comme bénévole !</string>
     <string name="eventdetailspage_alreadyvolunteer_toast">Vous êtes déjà inscrit comme bénévole à cet événement</string>
+    <string name="commentspage_disallowedword_toast">Votre commentaire contient un mot interdit. Veuillez réessayer.</string>
+    <string name="commentsview_report_text">Signaler</string>
 </resources>

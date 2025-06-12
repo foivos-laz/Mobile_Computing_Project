@@ -48,7 +48,6 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
     var password by remember {
         mutableStateOf("")
     }
-
     var enabled by remember {
         mutableStateOf(true)
     }
