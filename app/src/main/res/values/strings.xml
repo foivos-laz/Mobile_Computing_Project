@@ -48,4 +48,18 @@
     <string name="accountpage_nointerestedevents_text">You don\'t have any events that you are interested for</string>
     <string name="eventdetailspage_interestedtext">If you are interested to remember this event you can add it to your calendar and your collection of events that you are interested for!</string>
     <string name="eventdetailspage_interested_button">Interested</string>
+    <string name="commentspage_text1">Enter your comment:</string>
+    <string name="commentpage_button1">Submit</string>
+    <string name="commentpage_text2">Comment</string>
+    <string name="commentpage_toast1">Comment created successfully</string>
+    <string name="commentpage_toast2">Your comment wasn\'t successfully created</string>
+    <string name="toast_genericerror">Something went wrong</string>
+    <string name="toastcalendar_permission_denied">Calendar permissions denied.</string>
+    <string name="eventdetailspage_openingcalendartoast">Opening calendar app...</string>
+    <string name="eventdetailspage_nocalendarfound_toast">No calendar app was found</string>
+    <string name="eventdetailspage_successfullyregistred_toast">Successfully registered</string>
+    <string name="eventdetailspage_alreadyregistred_toast">You are already registered</string>
+    <string name="eventsdetailspage_nomoreavailableseats">No more available seats</string>
+    <string name="eventsdetailspage_volunteersuccessfulregistration_toast">You are now registered to volunteer!</string>
+    <string name="eventdetailspage_alreadyvolunteer_toast">You are already registered to volunteer in this event</string>
 </resources>

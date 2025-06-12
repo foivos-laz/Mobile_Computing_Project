@@ -57,6 +57,8 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
 
     var context = LocalContext.current
 
+    val toast = stringResource(id = R.string.toast_genericerror)
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(32.dp),
@@ -108,7 +110,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
             }
             }
               else{
-             AppUtil.showToast(context, errorMessage?:"Something went wrong")
+             AppUtil.showToast(context, errorMessage?:toast)
 
         }}}, modifier = Modifier
             .fillMaxWidth()

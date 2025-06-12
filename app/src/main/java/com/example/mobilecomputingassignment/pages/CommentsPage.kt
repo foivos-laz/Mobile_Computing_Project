@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -63,6 +64,9 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
 
     val context = LocalContext.current
 
+    val toastSuccess = stringResource(id = R.string.commentpage_toast1)
+    val toastFail = stringResource(id = R.string.commentpage_toast2)
+
     LaunchedEffect(Unit) {
         Firebase.firestore.collection("users").document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .get().addOnCompleteListener {
@@ -83,7 +87,7 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
             }
     }
 
-    Box(){
+    Box{
         Column(
             modifier = Modifier.fillMaxSize()
                 .padding(16.dp)
@@ -141,7 +145,7 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
             Dialog(onDismissRequest = { showDialog = false }) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = MaterialTheme.colorScheme.surface,
+                    color = Color.White,//MaterialTheme.colorScheme.surface,
                     tonalElevation = 8.dp,
                     modifier = Modifier.padding(16.dp)
                 ) {
@@ -150,13 +154,16 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
                             .padding(16.dp)
                             .fillMaxWidth()
                     ) {
-                        Text(text = "Enter your comment:")
+                        Text(text = stringResource(id = R.string.commentspage_text1))
                         Spacer(modifier = Modifier.height(8.dp))
                         TextField(
                             value = inputText,
                             onValueChange = { inputText = it },
                             modifier = Modifier.fillMaxWidth(),
-                            singleLine = true
+                            //singleLine = true,
+                            label = {
+                                Text(stringResource(id = R.string.commentpage_text2))
+                            }
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
@@ -175,17 +182,21 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
                                     .collection("comments").document(commentID)
                                     .set(commentModel)
                                     .addOnSuccessListener {
-                                        AppUtil.showToast(context, "Comment created successfully")
+                                        AppUtil.showToast(context, toastSuccess)
                                     }
                                     .addOnFailureListener {
-                                        AppUtil.showToast(context, "Your comment wasn't successfully created")
+                                        AppUtil.showToast(context, toastFail)
                                     }
 
                                 showDialog = false
                             },
-                            modifier = Modifier.align(Alignment.End)
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF87217),
+                                contentColor = Color.White
+                            )
                         ) {
-                            Text("Submit")
+                            Text(stringResource(id = R.string.commentpage_button1))
                         }
                     }
                 }

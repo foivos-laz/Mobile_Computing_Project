@@ -44,6 +44,8 @@ fun NameChangeScreen(modifier: Modifier = Modifier, navController: NavHostContro
 
     var context = LocalContext.current
 
+    val toast = stringResource(id = R.string.toast_genericerror)
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(32.dp),
@@ -83,7 +85,7 @@ fun NameChangeScreen(modifier: Modifier = Modifier, navController: NavHostContro
                    } else {
                        AppUtil.showToast(
                            context,
-                           errorMessage ?: "Something went wrong"
+                           errorMessage ?: toast
                        )
                    }
                }
