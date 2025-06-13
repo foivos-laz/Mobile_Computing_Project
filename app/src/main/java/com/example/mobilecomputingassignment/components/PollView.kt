@@ -1,5 +1,6 @@
 package com.example.mobilecomputingassignment.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,25 +16,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,22 +42,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobilecomputingassignment.AppUtil
 import com.example.mobilecomputingassignment.GlobalNavigation
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.Routes
-import com.example.mobilecomputingassignment.model.EventModel
 import com.example.mobilecomputingassignment.model.PollModel
-import com.example.mobilecomputingassignment.pages.PollsPage
+import com.example.mobilecomputingassignment.model.ReportModel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import java.text.SimpleDateFormat
-import java.util.Hashtable
-import java.util.Locale
 import kotlin.math.round
 
 @Composable
@@ -94,8 +88,36 @@ fun PollView(modifier: Modifier = Modifier, userID : String) {
         ) {
             items(pollList.value) { item ->
                 val poll = remember { mutableStateOf(item) }
-                PollItem(Modifier.padding(8.dp), poll, userID)
-                Spacer(modifier = Modifier.height(10.dp))
+                val db = FirebaseFirestore.getInstance()
+                val reportsRef = db.collection("reports")
+
+                var tooManyReports by remember {
+                    mutableStateOf(false)
+                }
+
+                reportsRef
+                    .whereEqualTo("idOfReportedItem", item.id)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        if (!querySnapshot.isEmpty) {
+                            // Found an existing report
+                            val document = querySnapshot.documents[0]
+                            val currentAmount = document.getLong("reportAmount") ?: 0
+                            Log.e("Error", "Amount of reports for comment:"+item.id+" ,is: "+currentAmount)
+
+                            if(currentAmount >= 15){
+                                tooManyReports = true
+                            }
+                        }
+                    }
+
+                if(tooManyReports == true){
+                    null
+                }
+                else{
+                    PollItem(Modifier.padding(8.dp), poll, userID)
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
             }
         }
         Button(
@@ -119,6 +141,10 @@ fun PollView(modifier: Modifier = Modifier, userID : String) {
 fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
     var context = LocalContext.current
 
+    var enabled by remember {
+        mutableStateOf(true)
+    }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(5.dp),
@@ -135,7 +161,7 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
             }
         }
         if (show_answer.value){
-            showAnswer(poll.value,userID)
+            ShowAnswer(poll.value,userID)
         }else{
             Column (modifier = Modifier
                 .fillMaxSize()
@@ -148,7 +174,7 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                         fontWeight = FontWeight.SemiBold
                     )
                 )
-                var nbOfAnswer = remember { mutableStateOf(0) }
+                var nbOfAnswer = remember { mutableIntStateOf(0) }
                 val checkedStates = remember {
                     poll.value.choices.associateWith { mutableStateOf(false) }
                 }
@@ -159,11 +185,11 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                     ) {
                         Checkbox(
                             checked = checkedStates[option]?.value ?:false,
-                            onCheckedChange = {newValue -> checkedStates[option]?.value = newValue;
+                            onCheckedChange = {newValue -> checkedStates[option]?.value = newValue
                                 if (newValue){
-                                    nbOfAnswer.value++;
+                                    nbOfAnswer.value++
                                 } else {
-                                    nbOfAnswer.value--;
+                                    nbOfAnswer.value--
                                 }
                             }
                         )
@@ -179,7 +205,7 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                         showProblem.value = false
                         checkedStates.forEach { (choice, state) ->
                             if (state.value) {
-                                submitVote(poll.value.id, userID, choice)
+                                SubmitVote(poll.value.id, userID, choice)
                                 val updatedAnswers = poll.value.answers?.toMutableMap().apply {
                                     val updatedList = this?.get(choice)?.toMutableList() ?: mutableListOf()
                                     updatedList.add(userID)
@@ -190,7 +216,7 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                             state.value = false
                         }
                     } else {
-                        showProblem.value = false;
+                        showProblem.value = false
                     }
                 }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFF87217),
@@ -198,6 +224,61 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                     Text(text = stringResource(id = R.string.commentpage_button1),
                         fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)
                 }
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Text(
+                    text = stringResource(id = R.string.commentsview_report_text), modifier = Modifier.padding(10.dp, 0.dp)
+                        .clickable(enabled = enabled){
+                            val db = FirebaseFirestore.getInstance()
+                            val reportsRef = db.collection("reports")
+
+                            reportsRef
+                                .whereEqualTo("idOfReportedItem", poll.value.id)
+                                .get()
+                                .addOnSuccessListener { querySnapshot ->
+                                    if (!querySnapshot.isEmpty) {
+                                        // Found an existing report
+                                        val document = querySnapshot.documents[0]
+                                        val currentAmount = document.getLong("reportAmount") ?: 0
+                                        val updatedAmount = currentAmount + 1
+
+                                        document.reference.update("reportAmount", updatedAmount)
+                                            .addOnSuccessListener {
+                                                Log.d("Report", "Report updated successfully.")
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e("Report", "Failed to update report: ${e.message}")
+                                            }
+                                    } else {
+                                        // No existing report found, create a new one
+                                        val newReport = ReportModel(
+                                            idOfReportedItem = poll.value.id,
+                                            reportAmount = 1
+                                        )
+
+                                        reportsRef.add(newReport)
+                                            .addOnSuccessListener {
+                                                Log.d("Report", "New report created successfully.")
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e("Report", "Failed to create new report: ${e.message}")
+                                            }
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("Report", "Failed to fetch reports: ${e.message}")
+                                }
+                        },
+                    textAlign = TextAlign.Start,
+                    style = TextStyle(
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color(0xFFF87217),
+                        textDecoration = TextDecoration.Underline
+
+                    )
+                )
 
                 if (showProblem.value){
                     val toast1 = stringResource(id = R.string.pollpage_error_text)
@@ -209,7 +290,7 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
 }
 
 @Composable
-fun showAnswer(poll : PollModel, userID: String){
+fun ShowAnswer(poll : PollModel, userID: String){
     val choiceListe = poll.choices.associate { it to 0 }.toMutableMap()
         //mutableMapOf<String, Int>()
     val userChoice : MutableList<String> = remember { mutableListOf("") }
@@ -259,7 +340,7 @@ fun showAnswer(poll : PollModel, userID: String){
     }
 }
 
-fun submitVote(pollID: String, userID : String, choice : String){
+fun SubmitVote(pollID: String, userID : String, choice : String){
     val db = FirebaseFirestore.getInstance()
     db.collection("poll")
         .document(pollID)

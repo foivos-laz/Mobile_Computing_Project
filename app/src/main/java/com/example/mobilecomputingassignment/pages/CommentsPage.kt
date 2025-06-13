@@ -195,7 +195,7 @@ fun CommentsPage(modifier: Modifier = Modifier, eventID : String) {
 
                                 val db = FirebaseFirestore.getInstance()
 
-                                var containsDisallowedWord : Boolean = false
+                                var containsDisallowedWord = false
 
                                 //Checks if all words in disallowed word list are contained in
                                 //the comment

@@ -1,5 +1,6 @@
 package com.example.mobilecomputingassignment.pages
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +18,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -32,16 +33,34 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobilecomputingassignment.AppUtil
-import com.google.firebase.firestore.FirebaseFirestore
 import com.example.mobilecomputingassignment.GlobalNavigation
 import com.example.mobilecomputingassignment.Routes
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.example.mobilecomputingassignment.R
+import com.example.mobilecomputingassignment.model.DisallowedWordsModel
+import com.google.firebase.Timestamp
 
 @Composable
 fun PollCreationPage(modifier: Modifier = Modifier) {
+    var disallowedWordsList = remember {
+        //mutableStateOf<List<DisallowedWordsModel>>(emptyList())
+        mutableStateListOf<DisallowedWordsModel>()
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        Firebase.firestore.collection("forbiddenWords").get()
+            .addOnCompleteListener {
+                val result = it.result.documents.mapNotNull { doc ->
+                    doc.toObject(DisallowedWordsModel::class.java)
+                }
+                disallowedWordsList.addAll(result)
+            }
+    }
+
     var context = LocalContext.current
+
+    val toastDisallowedWord : String = stringResource(R.string.pollcreationpage_toastdisallowedword)
 
     Box(modifier = Modifier.fillMaxSize()) {
         val scrollState = rememberScrollState()
@@ -155,8 +174,14 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
         Button(
             onClick = { if (texte.all { it.isNotBlank() } && isNumberChoose.value){
                 errorMessage.value = false
-                sendNewPoll(texte, multipleChoice.value)
-                GlobalNavigation.navController.navigate(Routes.homescreen)
+                val result = sendNewPoll(texte, multipleChoice.value, disallowedWordsList, context, toastDisallowedWord)
+                if(result == true){
+                    GlobalNavigation.navController.navigate(Routes.homescreen)
+                }
+                else{
+                    null
+                }
+
             } else {
                 errorMessage.value = true
             }},
@@ -176,16 +201,33 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
     }
 }
 
-fun sendNewPoll(texte : MutableList<String> , multipleAnswers : Boolean){
+fun sendNewPoll(texte : MutableList<String>, multipleAnswers : Boolean, disallowedWordsList : MutableList<DisallowedWordsModel>, context : Context, toastDisallowedWord : String): Boolean {
     //val db = FirebaseFirestore.getInstance()
+
+    var containsDisallowedWord  = false
+
     val pollID = Firebase.firestore.collection("poll").document().id
     val newPoll = hashMapOf(
         "id" to pollID,
         "question" to texte[0],
         "choices" to texte.drop(1),
-        "creationDate" to com.google.firebase.Timestamp.now(),
+        "creationDate" to Timestamp.now(),
         "multipleChoice" to multipleAnswers,
         "answers" to mapOf<String, List<String>>()
     )
-    Firebase.firestore.collection("poll").document(pollID).set(newPoll)
+
+    disallowedWordsList.forEach{
+        for (item in texte)
+        if(item.contains(it.word, ignoreCase = true)){
+            containsDisallowedWord = true
+        }
+    }
+
+    if(containsDisallowedWord == true){
+        AppUtil.showToast(context,toastDisallowedWord)
+        return false
+    }else{
+        Firebase.firestore.collection("poll").document(pollID).set(newPoll)
+        return true
+    }
 }
