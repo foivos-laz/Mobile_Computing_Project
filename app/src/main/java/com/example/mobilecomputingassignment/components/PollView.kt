@@ -186,9 +186,13 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                 Text(text = poll.value.question, modifier = Modifier,
                     style = TextStyle(
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center
                     )
                 )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
                 var nbOfAnswer = remember { mutableIntStateOf(0) }
                 val checkedStates = remember {
                     poll.value.choices.associateWith { mutableStateOf(false) }
@@ -314,7 +318,11 @@ fun ShowAnswer(poll : PollModel, userID: String){
         .padding(3.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = poll.question)
+        Text(text = poll.question, fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+
+        Spacer(modifier = Modifier.height(15.dp))
+
         poll.answers?.forEach{(choice, userList) ->
             choiceListe[choice]=userList.size
             if (userID in userList){
@@ -323,32 +331,42 @@ fun ShowAnswer(poll : PollModel, userID: String){
         }
         userChoice.drop(1)
         val total : Int = choiceListe.values.sum()
-        choiceListe.forEach{(choice, num) ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
-            ){
-                if (choice in userChoice){
-                    Text(text = choice+ " : ",
-                        fontWeight = FontWeight.Bold)
-                } else {
-                    Text(text = choice + " : ")
-                }
+        choiceListe.forEach { (choice, num) ->
+            val percentage = if (total > 0) num.toFloat() / total else 0f
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
+                Text(
+                    text = "$choice :",
+                    fontWeight = if (choice in userChoice) FontWeight.Bold else FontWeight.Normal,
+                    textAlign = TextAlign.Center
+                )
 
                 Box(
                     modifier = Modifier
-                        .weight(3f)
+                        .fillMaxWidth()
                         .height(20.dp)
                         .background(Color.LightGray)
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .fillMaxWidth(num.toFloat()/total)
+                            .fillMaxWidth(percentage.coerceAtLeast(0.01f)) // ensure visibility
                             .background(Color(0xFF4CAF50))
-                    ){Text(text=round(num.toDouble()/total*100).toString()+"%",
-                        modifier = Modifier.align(Alignment.Center)
-                    )}
+                    ) {
+                        if (percentage > 0f) {
+                            Text(
+                                text = "${round(percentage * 100)}%",
+                                modifier = Modifier.align(Alignment.Center),
+                                color = Color.White
+                            )
+                        }
+                    }
                 }
             }
         }
