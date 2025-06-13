@@ -19,11 +19,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -120,7 +124,7 @@ fun PollView(modifier: Modifier = Modifier, userID : String) {
                 }
             }
         }
-        Button(
+        /*Button(
             onClick = {GlobalNavigation.navController.navigate(Routes.pollcreationpage) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -134,6 +138,17 @@ fun PollView(modifier: Modifier = Modifier, userID : String) {
         ) {
             Text(text = stringResource(id = R.string.pollpage_createpoll_button), fontSize = 18.sp,
                 fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)
+        }*/
+        FloatingActionButton(
+            onClick = {
+                GlobalNavigation.navController.navigate(Routes.pollcreationpage)
+            },
+            modifier = Modifier.padding(25.dp)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 60.dp, end = 0.dp),
+            containerColor = Color(0xFFE5BA97)
+        ) {
+            Icon(Icons.Filled.Add, "Floating action button.")
         }
     }
 }
