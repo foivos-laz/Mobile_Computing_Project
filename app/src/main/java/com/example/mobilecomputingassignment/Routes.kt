@@ -9,4 +9,5 @@ object Routes {
     var eventdetailspage = "EventDetailsPage"
     var clubdetailspage = "ClubDetailsPage"
     var pollcreationpage = "PollCreationPage"
+    var commentspage = "CommentsPage"
 }

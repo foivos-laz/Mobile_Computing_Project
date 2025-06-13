@@ -78,7 +78,7 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
             EventsInterestedAccountView(modifier)
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //This area handles the registered events
         Column (modifier = Modifier.fillMaxWidth()){
@@ -95,7 +95,7 @@ fun AccountPage(modifier: Modifier = Modifier, navController: NavHostController,
             EventsAccountView(modifier)
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //This area handles the volunteering events
         Column (modifier = Modifier.fillMaxWidth()){

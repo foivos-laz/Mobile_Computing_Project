@@ -50,7 +50,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import com.example.mobilecomputingassignment.AppUtil
+import com.example.mobilecomputingassignment.GlobalNavigation
 import com.example.mobilecomputingassignment.R
+import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.model.ClubModel
 import com.example.mobilecomputingassignment.model.EventModel
 import com.google.firebase.Firebase
@@ -84,7 +86,14 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
 
     var context = LocalContext.current
 
-   //To get permission to write to calendar
+    val toastCalPerDenied = stringResource(id = R.string.toastcalendar_permission_denied)
+    val toastAlreadyRegistered = stringResource(id = R.string.eventdetailspage_alreadyregistred_toast)
+    val toastNoAvailableSeats = stringResource(id = R.string.eventsdetailspage_nomoreavailableseats)
+    val toastSuccessfullyRegistered = stringResource(id = R.string.eventdetailspage_successfullyregistred_toast)
+    val toastVolunteerRegistrationSuccess = stringResource(id = R.string.eventsdetailspage_volunteersuccessfulregistration_toast)
+    val toastAlreadyRegisteredVolunteer = stringResource(id = R.string.eventdetailspage_alreadyvolunteer_toast)
+
+    //To get permission to write to calendar
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -94,7 +103,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
             addEventToCalendar(context, event)
         } else {
             // Permissions denied
-            Toast.makeText(context, "Calendar permissions denied.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, toastCalPerDenied, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -320,6 +329,33 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    //Seats Information
+                    if(event.needRegistration == true){
+                        Column(modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally){
+                            Row(modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically){
+                                Text(text = stringResource(id = R.string.eventdetailspage_availableseatstwext), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                    ))
+
+                                Spacer(modifier = Modifier.width(10.dp))
+
+                                Text(text = event.availableSeats.toString(), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Color(0xFFF87217)
+                                    ))
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+
                     // Host Information
                     val hostingClubs = hostingClubsState.value
                     Column(
@@ -351,8 +387,6 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                         }
                     }
 
-                    //Spacer(modifier = Modifier.weight(1f))
-                    //Spacer(modifier = Modifier.height(80.dp))
                     Spacer(modifier = Modifier.height(10.dp))
 
                     //Interested Button
@@ -422,7 +456,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Button(onClick = {
-
+                            GlobalNavigation.navController.navigate(Routes.commentspage+event.id)
                         },modifier = Modifier
                             .fillMaxWidth()
                             .height(60.dp),
@@ -477,11 +511,11 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
 
                                         }.addOnSuccessListener {
                                             isRegistered = true
-                                            AppUtil.showToast(context, "Successfully registered")
+                                            AppUtil.showToast(context, toastSuccessfullyRegistered)
                                         }.addOnFailureListener { e ->
                                             val message = when (e.message) {
-                                                "Already registered" -> "You are already registered"
-                                                "No seats left" -> "No more available seats"
+                                                "Already registered" -> toastAlreadyRegistered
+                                                "No seats left" -> toastNoAvailableSeats
                                                 else -> "Failed to register: ${e.message}"
                                             }
                                             AppUtil.showToast(context, message)
@@ -540,10 +574,10 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                                         // Add user ID to volunteers
                                         transaction.update(eventRef, "volunteers", FieldValue.arrayUnion(currentUserId))
                                     }.addOnSuccessListener {
-                                        AppUtil.showToast(context, "You are now registered to volunteer!")
+                                        AppUtil.showToast(context, toastVolunteerRegistrationSuccess)
                                     }.addOnFailureListener { e ->
                                         val message = when (e.message) {
-                                            "Already volunteering" -> "You are already registered to volunteer in this event"
+                                            "Already volunteering" -> toastAlreadyRegisteredVolunteer
                                             else -> "Something went wrong: ${e.message}"
                                         }
                                         AppUtil.showToast(context, message)
@@ -561,6 +595,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                                     text = stringResource(id = R.string.eventdetailspage_volunteerbutton),
                                     fontSize = 22.sp,
                                     fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center
                                 )
                             }
                         }
@@ -572,6 +607,9 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
 }
 
 fun addEventToCalendar(context: Context, event: EventModel) {
+    val toastOpeningCalendar = R.string.eventdetailspage_openingcalendartoast
+    val toastNoCalendarFound = R.string.eventdetailspage_nocalendarfound_toast
+
     // Convert Firebase Timestamp to milliseconds for calendar event
     val startMillis = event.date.toDate().time
 
@@ -594,11 +632,10 @@ fun addEventToCalendar(context: Context, event: EventModel) {
     if (intent.resolveActivity(context.packageManager) != null) {
         Log.d("CalendarEvent", "Calendar app found, launching intent.")
         context.startActivity(intent)
-        Toast.makeText(context, "Opening calendar app...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, toastOpeningCalendar, Toast.LENGTH_SHORT).show()
 
     } else {
         // Handle the case where no calendar app is installed
-        // e.g. show a Toast or Snackbar
-        Toast.makeText(context, "No calendar app was found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, toastNoCalendarFound, Toast.LENGTH_SHORT).show()
     }
 }

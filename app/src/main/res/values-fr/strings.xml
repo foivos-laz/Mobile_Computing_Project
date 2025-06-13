@@ -49,4 +49,20 @@
     <string name="accountpage_nointerestedevents_text">Vous n\'avez aucun événement qui vous intéresse</string>
     <string name="eventdetailspage_interestedtext">Si vous souhaitez vous souvenir de cet événement, vous pouvez l\'ajouter à votre calendrier et à votre collection d\'événements qui vous intéressent!</string>
     <string name="eventdetailspage_interested_button">Je suis intéressé</string>
+    <string name="commentspage_text1">Entrez votre commentaire:</string>
+    <string name="commentpage_button1">Soumettre</string>
+    <string name="commentpage_text2">Commentaire</string>
+    <string name="commentpage_toast1">Commentaire créé avec succès</string>
+    <string name="commentpage_toast2">Your comment wasn\'t successfully created</string>
+    <string name="toast_genericerror">Quelque chose s\'est mal passé</string>
+    <string name="toastcalendar_permission_denied">Autorisations de calendrier refusées.</string>
+    <string name="eventdetailspage_openingcalendartoast">Ouverture de l\'application Calendrier...</string>
+    <string name="eventdetailspage_nocalendarfound_toast">Aucune application de calendrier n\'a été trouvée</string>
+    <string name="eventdetailspage_successfullyregistred_toast">Inscription réussie</string>
+    <string name="eventdetailspage_alreadyregistred_toast">Vous êtes déjà inscrit</string>
+    <string name="eventsdetailspage_nomoreavailableseats">Plus de places disponibles</string>
+    <string name="eventsdetailspage_volunteersuccessfulregistration_toast">Vous êtes maintenant inscrit comme bénévole !</string>
+    <string name="eventdetailspage_alreadyvolunteer_toast">Vous êtes déjà inscrit comme bénévole à cet événement</string>
+    <string name="commentspage_disallowedword_toast">Votre commentaire contient un mot interdit. Veuillez réessayer.</string>
+    <string name="commentsview_report_text">Signaler</string>
 </resources>

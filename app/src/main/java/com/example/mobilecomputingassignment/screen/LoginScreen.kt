@@ -48,7 +48,6 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
     var password by remember {
         mutableStateOf("")
     }
-
     var enabled by remember {
         mutableStateOf(true)
     }
@@ -56,6 +55,8 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
     val orange = Color(0xFFF87217)
 
     var context = LocalContext.current
+
+    val toast = stringResource(id = R.string.toast_genericerror)
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -108,7 +109,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController,
             }
             }
               else{
-             AppUtil.showToast(context, errorMessage?:"Something went wrong")
+             AppUtil.showToast(context, errorMessage?:toast)
 
         }}}, modifier = Modifier
             .fillMaxWidth()
