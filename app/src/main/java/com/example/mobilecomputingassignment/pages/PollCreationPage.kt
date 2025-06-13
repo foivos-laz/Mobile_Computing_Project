@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Text
@@ -23,18 +24,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mobilecomputingassignment.AppUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.mobilecomputingassignment.GlobalNavigation
 import com.example.mobilecomputingassignment.Routes
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import com.example.mobilecomputingassignment.R
 
 @Composable
 fun PollCreationPage(modifier: Modifier = Modifier) {
+    var context = LocalContext.current
+
     Box(modifier = Modifier.fillMaxSize()) {
         val scrollState = rememberScrollState()
         val texte = remember { mutableStateListOf("") }
@@ -45,7 +53,7 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
             .verticalScroll(scrollState)
             .padding(0.dp,0.dp, 0.dp, 60.dp)) {
             Text(
-                text = "New Poll",
+                text = stringResource(id = R.string.pollcreationpage_newpoll_text),
                 modifier = Modifier.fillMaxWidth().padding(0.dp, 20.dp),
                 style = TextStyle(
                     fontSize = 30.sp,
@@ -54,33 +62,33 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
 
             )
             Text(
-                text = "Question :",
+                text = stringResource(id = R.string.pollcreationpage_question_text),
                 modifier = Modifier.padding(0.dp, 10.dp)
             )
             TextField(
                 value = texte[0],
                 onValueChange = { it: String -> texte[0] = it },
-                label = { Text("Your Question") },
+                label = { Text(stringResource(id = R.string.pollcreationpage_yourquestion_label)) },
                 modifier = Modifier.fillMaxWidth()
             )
             val chosenNumber = remember { mutableStateOf(2) }
             if (isNumberChoose.value) {
                 for (i in 0 until chosenNumber.value) {
                     Text(
-                        text = "Choice ${i + 1} :",
+                        text = stringResource(id = R.string.pollcreationpage_choice_text) +" "+"${i + 1}"+" :",//"Choice ${i + 1} :",
                         modifier = Modifier.padding(0.dp, 10.dp)
                     )
                     TextField(
                         value = texte[i + 1],
                         onValueChange = { it: String -> texte[i + 1] = it },
-                        label = { Text("Choice ${i + 1}") },
+                        label = {stringResource(id = R.string.pollcreationpage_choice_text) +" "+"${i + 1}"},//Text("Choice ${i + 1}") },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
             } else {
                 val showMessage = remember { mutableStateOf(false) }
                 Text(
-                    text = "Number of choices :",
+                    text = stringResource(id = R.string.pollcreationpage_numberofchoices_text),
                     modifier = Modifier.padding(0.dp, 10.dp)
                 )
                 Row {
@@ -92,7 +100,7 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
                             val number = newValue.toIntOrNull()
                             showMessage.value = number == null || number < 2
                         },
-                        label = { Text("number of choices") },
+                        label = { Text(stringResource(id = R.string.pollcreationpage_numberofchoices)) },
                         modifier = Modifier.weight(1f)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -107,16 +115,21 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
                                 isNumberChoose.value = true
                             }
                         },
-                        modifier = Modifier.align(Alignment.CenterVertically)
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFF87217),
+                            contentColor = Color.White)
                     ) {
-                        Text("ok")
+                        Text(stringResource(id = R.string.pollcreationpage_ok_button))
                     }
                 }
                 if (showMessage.value) {
-                    Text(
+                    val toasterror1 = stringResource(id = R.string.pollcreationpage_multiplechoiceerror_toast)
+                    AppUtil.showToast(context, toasterror1)
+                    /*Text(
                         text = "Minimum number of choices = 2, please put 2 or more",
                         color = Color.Red
-                    )
+                    )*/
                 }
             }
             Row(modifier = Modifier.clickable { multipleChoice.value = !multipleChoice.value }) {
@@ -125,17 +138,19 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
                     onCheckedChange = { newValue -> multipleChoice.value = newValue }
                 )
                 Text(
-                    text = "Multiple Answer Question",
+                    text = stringResource(id = R.string.pollcreationpage_multiplechoicecheckbox_text),//"Multiple Answer Question",
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )
             }
         }
         if (errorMessage.value){
-            Text(text = "The question or some choices are not filled ",
+            val toasterror2 = stringResource(id = R.string.pollcreationpage_error2_toast)
+            AppUtil.showToast(context, toasterror2)
+            /*Text(text = "The question or some choices are not filled ",
                 color = Color.Red,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 75.dp))
+                    .padding(bottom = 75.dp))*/
         }
         Button(
             onClick = { if (texte.all { it.isNotBlank() } && isNumberChoose.value){
@@ -147,12 +162,16 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
             }},
             modifier = Modifier
                 .fillMaxWidth()
-                .height(66.dp)
+                //.height(66.dp)
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 30.dp)
+                .padding(bottom = 30.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFF87217),
+                contentColor = Color.White)
         ) {
-            Text("Submit", color = Color.White)
+            Text(text = stringResource(id = R.string.commentpage_button1),fontSize = 22.sp,
+                fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)
         }
     }
 }

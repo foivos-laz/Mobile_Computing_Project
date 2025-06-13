@@ -65,4 +65,16 @@
     <string name="eventdetailspage_alreadyvolunteer_toast">Είστε ήδη εγγεγραμένοι ως εθελοντές για αυτό το συμβάν</string>
     <string name="commentspage_disallowedword_toast">Το σχόλιο σας περιέχη μια απρεπής λέξη. Παρακαλούμε ξαναπροσπαθήστε.</string>
     <string name="commentsview_report_text">Αναφορά</string>
+    <string name="pollpage_createpoll_button">Δημιουργήστε μια δημοσκόπηση</string>
+    <string name="pollpage_error_text">Δεν είναι ερώτηση πολλαπλών απαντήσεων</string>
+    <string name="pollcreationpage_question_text">Ερώτηση :</string>
+    <string name="pollcreationpage_yourquestion_label">Η ερώτησή σας</string>
+    <string name="pollcreationpage_newpoll_text">Νέα δημοσκόπηση</string>
+    <string name="pollcreationpage_numberofchoices_text">Αριθμός επιλογών :</string>
+    <string name="pollcreationpage_multiplechoiceerror_toast">Ελάχιστος αριθμός επιλογών = 2, παρακαλώ εισάγετε 2 ή περισσότερες</string>
+    <string name="pollcreationpage_multiplechoicecheckbox_text">Ερώτηση πολλαπλής απάντησης</string>
+    <string name="pollcreationpage_error2_toast">Η ερώτηση ή ορισμένες επιλογές δεν έχουν συμπληρωθεί</string>
+    <string name="pollcreationpage_choice_text">Επιλογή</string>
+    <string name="pollcreationpage_numberofchoices">Αριθμός επιλογών</string>
+    <string name="pollcreationpage_ok_button">OK</string>
 </resources>

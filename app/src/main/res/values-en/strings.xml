@@ -65,4 +65,16 @@
     <string name="eventdetailspage_alreadyvolunteer_toast">You are already registered to volunteer in this event</string>
     <string name="commentspage_disallowedword_toast">Your comment contains a disallowed word. Please try again.</string>
     <string name="commentsview_report_text">Report</string>
+    <string name="pollpage_createpoll_button">Create a poll</string>
+    <string name="pollpage_error_text">It is not a multiple answer question</string>
+    <string name="pollcreationpage_question_text">Question :</string>
+    <string name="pollcreationpage_yourquestion_label">Your Question</string>
+    <string name="pollcreationpage_newpoll_text">New Poll</string>
+    <string name="pollcreationpage_numberofchoices_text">Number of choices :</string>
+    <string name="pollcreationpage_multiplechoiceerror_toast">Minimum number of choices = 2, please put 2 or more</string>
+    <string name="pollcreationpage_multiplechoicecheckbox_text">Multiple Answer Question</string>
+    <string name="pollcreationpage_error2_toast">The question or some choices are not filled</string>
+    <string name="pollcreationpage_choice_text">Choice</string>
+    <string name="pollcreationpage_numberofchoices">Number of choices</string>
+    <string name="pollcreationpage_ok_button">OK</string>
 </resources>

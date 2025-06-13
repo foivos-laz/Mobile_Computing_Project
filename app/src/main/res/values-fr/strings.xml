@@ -65,4 +65,16 @@
     <string name="eventdetailspage_alreadyvolunteer_toast">Vous êtes déjà inscrit comme bénévole à cet événement</string>
     <string name="commentspage_disallowedword_toast">Votre commentaire contient un mot interdit. Veuillez réessayer.</string>
     <string name="commentsview_report_text">Signaler</string>
+    <string name="pollpage_createpoll_button">Créer un sondage</string>
+    <string name="pollpage_error_text">Ce n\'est pas une question à réponses multiples</string>
+    <string name="pollcreationpage_question_text">Question :</string>
+    <string name="pollcreationpage_yourquestion_label">Votre question</string>
+    <string name="pollcreationpage_newpoll_text">Nouveau sondage</string>
+    <string name="pollcreationpage_numberofchoices_text">Nombre de choix :</string>
+    <string name="pollcreationpage_multiplechoiceerror_toast">Nombre minimum de choix = 2, veuillez en mettre 2 ou plus</string>
+    <string name="pollcreationpage_multiplechoicecheckbox_text">Question à réponses multiples</string>
+    <string name="pollcreationpage_error2_toast">La question ou certains choix ne sont pas remplis</string>
+    <string name="pollcreationpage_choice_text">Choix</string>
+    <string name="pollcreationpage_numberofchoices">Nombre de choix</string>
+    <string name="pollcreationpage_ok_button">OK</string>
 </resources>
