@@ -141,23 +141,21 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
                     Column(modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally){
-                        Row(modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically){
                             Text(text = stringResource(id = R.string.clubdetailpage_campus_text), modifier = Modifier,
+                                textAlign = TextAlign.Center,
                                 style = TextStyle(
                                     fontSize = 20.sp,
                                 ))
 
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
 
                             Text(text = club.campus, modifier = Modifier,
+                                textAlign = TextAlign.Center,
                                 style = TextStyle(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color(0xFFF87217)
                                 ))
-                        }
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))

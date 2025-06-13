@@ -329,6 +329,33 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    //Seats Information
+                    if(event.needRegistration == true){
+                        Column(modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally){
+                            Row(modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically){
+                                Text(text = stringResource(id = R.string.eventdetailspage_availableseatstwext), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                    ))
+
+                                Spacer(modifier = Modifier.width(10.dp))
+
+                                Text(text = event.availableSeats.toString(), modifier = Modifier,
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Color(0xFFF87217)
+                                    ))
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+
                     // Host Information
                     val hostingClubs = hostingClubsState.value
                     Column(
@@ -568,6 +595,7 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                                     text = stringResource(id = R.string.eventdetailspage_volunteerbutton),
                                     fontSize = 22.sp,
                                     fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center
                                 )
                             }
                         }
