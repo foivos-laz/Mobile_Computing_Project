@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mobilecomputingassignment.model.EventModel
 import com.example.mobilecomputingassignment.pages.ClubDetailsPage
 import com.example.mobilecomputingassignment.pages.EventDetailsPage
+import com.example.mobilecomputingassignment.pages.PollCreationPage
 import com.example.mobilecomputingassignment.screen.AuthScreen
 import com.example.mobilecomputingassignment.screen.HomeScreen
 import com.example.mobilecomputingassignment.screen.LoginScreen
@@ -59,6 +60,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable(Routes.clubdetailspage+"{uid}") {
             var clubID = it.arguments?.getString("uid")
             ClubDetailsPage(modifier, clubID?:"")
+        }
+        composable(Routes.pollcreationpage) {
+            PollCreationPage(modifier)
         }
     })
 }

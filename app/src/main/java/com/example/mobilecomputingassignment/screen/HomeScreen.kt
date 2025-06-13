@@ -51,10 +51,13 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
         mutableStateOf("")
     }
 
+    var id by remember { mutableStateOf("") }
+
     LaunchedEffect(Unit) {
         Firebase.firestore.collection("users").document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .get().addOnCompleteListener {
-                name = it.result.get("name").toString().split(" ").get(0)
+                name = it.result.get("name").toString().split(" ").get(0);
+                id =FirebaseAuth.getInstance().currentUser?.uid!!
             }
     }
 
@@ -81,7 +84,7 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
             }
         }
     ) {
-        ContentScreen(modifier = modifier.padding(it), selectedIndex,navController, name)
+        ContentScreen(modifier = modifier.padding(it), selectedIndex,navController, name, id)
     }
 }
 
@@ -90,12 +93,13 @@ fun ContentScreen(
     modifier: Modifier = Modifier,
     selectedIndex: Int,
     navController: NavHostController,
-    name : String
+    name : String,
+    id : String
 ){
     when(selectedIndex){
         0-> EventPage(modifier)
         1-> ClubsPage(modifier)
-        2-> PollsPage(modifier)
+        2-> PollsPage(modifier, id)
         3-> AccountPage(modifier, navController, name)
     }
 }

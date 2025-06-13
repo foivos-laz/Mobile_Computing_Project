@@ -8,4 +8,5 @@ object Routes {
     var namechangescreen = "NameChangeScreen"
     var eventdetailspage = "EventDetailsPage"
     var clubdetailspage = "ClubDetailsPage"
+    var pollcreationpage = "PollCreationPage"
 }

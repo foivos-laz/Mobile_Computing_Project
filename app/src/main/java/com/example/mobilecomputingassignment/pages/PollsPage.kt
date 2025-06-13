@@ -16,9 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobilecomputingassignment.R
+import com.example.mobilecomputingassignment.components.EventsView
+import com.example.mobilecomputingassignment.components.PollView
 
 @Composable
-fun PollsPage(modifier: Modifier = Modifier) {
+fun PollsPage(modifier: Modifier = Modifier, userId : String) {
     Color(0xFFF87217)
 
     Column(modifier = Modifier.fillMaxSize()
@@ -34,10 +36,10 @@ fun PollsPage(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(
                     fontSize = 30.sp,
-                    //fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold
                 )
             )
         }
+        PollView(modifier, userId)
     }
 }
