@@ -1,0 +1,113 @@
+
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+.custom-field{
+    position: relative;
+    font-size: 14px;
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+.custom-field input{
+    padding: 12px;
+    width: 300px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1.5px solid gray;
+    outline-color: deepskyblue;
+}
+
+.custom-field .placeholder{
+    position: absolute;
+    left: 12px;
+    top: calc(50% + 10px);
+    transform: translateY(-50%);
+    color: #aaa;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder{
+    top: 21px;
+    font-size: 10px;
+    color: #222;
+    padding: 5px;
+    background: white;
+}
+
+.message{
+    font-size: 70px;
+    font-family: 'Ubuntu', sans-serif;
+    color: steelblue;
+}
+
+.success{
+    font-size: 18px;
+    margin-top: 15px;
+    color: seagreen;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.forms-out {
+        margin: 0 auto;
+        font-family: "Fira Sans", sans-serif;
+        padding: 15px 0;
+      }
+      .forms-in {
+        width: 93%;
+        margin: 0 auto;
+        color: white;
+        padding: 15px 0;
+      }
+      .forms-in div {
+        padding: 30px 20px;
+        max-width: 350px;
+        margin: 0 auto;
+        background: #168ab8;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+      .forms-in h3 {
+        text-align: center;
+      }
+      .forms-in input {
+        border: none;
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 3px;
+      }
+
+      .forms-in button {
+        border: none;
+        padding: 7px 20px;
+        background: #e8f8ff;
+        color: #168ab8;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .forms-in button:hover {
+        opacity: 0.7;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      #forgot-password {
+        text-align: center;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      #forgot-password:hover {
+        opacity: 0.7;
+      }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Navigation bar</title>
+  <style type="text/css">
+    *{
+      text-decoration: none;
+    }
+    .navbar{
+      background: rgb(250, 250, 250); font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; padding-right: 15px; padding-left: 15px;
+    }
+    .navdiv{
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo{
+      font-size: 35px; font-weight: 600;color: black;
+    }
+    li{
+      list-style: none; display: inline-block;
+    }
+    li a{
+      color: rgb(14, 11, 11); font-size: 18px; font-weight: bold; margin-right: 25px;
+     }
+    button{
+      background-color: black; margin-left: 10px; border-radius: 10px; padding: 10px; width: 90px;
+    }
+    button a{
+      color: rgb(255, 255, 255); font-weight: bold;font-size: 15px;
+        }
+    .logo a{
+      color: rgb(0, 0, 0);
+    }
+
+  </style>
+  <script type="module" src="home.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="slides.css">
+</head>
+<body>
+  <head>
+
+    <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo"> <a href="home.html">Tekkiens</a></div>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="ListEvent.html">Events</a></li>
+            <li><a href="Listclubs.html">Clubs</a></li>
+            <button><li><a href="connexion.html">SignIn/Up</a></li></button>
+          </ul>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <div id="slider">
+      <h1 class="titlefont">Evenements importants à suivre</h1>
+      <input type="radio" name="slider" id="slide1" checked>
+      <input type="radio" name="slider" id="slide2">
+      <input type="radio" name="slider" id="slide3">
+      <input type="radio" name="slider" id="slide4">
+      <div id="slides">
+         <div id="overflow">
+            <div class="inner">
+               <div class="slide slide_1">
+                  <div class="slide-content">
+                     <h2>Slide 1</h2>
+                     <p>Content for Slide 1</p>
+                  </div>
+               </div>
+               <div class="slide slide_2">
+                  <div class="slide-content">
+                     <h2>Slide 2</h2>
+                     <p>Content for Slide 2</p>
+                  </div>
+               </div>
+               <div class="slide slide_3">
+                  <div class="slide-content">
+                     <h2>Slide 3</h2>
+                     <p>Content for Slide 3</p>
+                  </div>
+               </div>
+               <div class="slide slide_4">
+                  <div class="slide-content">
+                     <h2>Slide 4</h2>
+                     <p>Content for Slide 4</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="controls">
+         <label for="slide1"></label>
+         <label for="slide2"></label>
+         <label for="slide3"></label>
+         <label for="slide4"></label>
+      </div>
+      <div id="bullets">
+         <label for="slide1"></label>
+         <label for="slide2"></label>
+         <label for="slide3"></label>
+         <label for="slide4"></label>
+      </div>
+   </div>
+   <br><br>
+   <div class="information">
+     <a class="even"><h1 class="titlefont">Evenement hebdomadaire !</h1></a>
+     
+   </div>
+      <div id="event-gallery" width="100%"><a href="Event.html?id=iih0Cgl3qz8Fjwd0FQkE"></a></div>
+      <div id="event-gallery" width="100%"> <a href="Event.html?id=BsSrG25LxBSFfDRqykAV"></a></div>
+      <div id="event-gallery"><a href="Event.html?id=0zwVjrQ5w5m2Y2YAoKYq"></a></div>
+  </body>
+  
+</body>
+<footer class="footer">
+  <footer>
+    <nav>
+      <ul>
+        <li><a href=#>Mentions légales</a></li>
+        <li><a href=#>Politique de confidentialité</a></li>
+        <li><p>Contact: <a href=#>info@exemple.com</a></p></p></li>
+        <li>Politique de confidentialité</li>
+      </ul>
+    </nav>
+  </footer>
+</footer>
+</html>
