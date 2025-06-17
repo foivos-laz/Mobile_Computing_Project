@@ -77,4 +77,6 @@
     <string name="pollcreationpage_numberofchoices">Number of choices</string>
     <string name="pollcreationpage_ok_button">OK</string>
     <string name="pollcreationpage_toastdisallowedword">Your poll contains a disallowed word. Please try again.</string>
+    <string name="email_noemailapp_text">No email app was found</string>
+    <string name="email_openingemailapp_text">Opening email app...</string>
 </resources>

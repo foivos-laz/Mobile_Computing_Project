@@ -56,7 +56,7 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
     LaunchedEffect(Unit) {
         Firebase.firestore.collection("users").document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .get().addOnCompleteListener {
-                name = it.result.get("name").toString().split(" ").get(0);
+                name = it.result.get("name").toString().split(" ").get(0)
                 id =FirebaseAuth.getInstance().currentUser?.uid!!
             }
     }

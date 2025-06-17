@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,6 +46,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -377,10 +379,15 @@ fun EventDetailsPage(modifier: Modifier = Modifier, eventID : String) {
                         for (club in hostingClubs) {
                             Text(
                                 text = club.name,
+                                modifier = Modifier
+                                    .clickable{
+                                        GlobalNavigation.navController.navigate(Routes.clubdetailspage+club.id)
+                                    },
                                 style = TextStyle(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.SemiBold,
-                                    color = Color(0xFFF87217)
+                                    color = Color(0xFFF87217),
+                                    textDecoration = TextDecoration.Underline
                                 )
                             )
                             Spacer(modifier = Modifier.height(10.dp))

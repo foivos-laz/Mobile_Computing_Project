@@ -56,7 +56,7 @@
     <string name="commentpage_toast2">Your comment wasn\'t successfully created</string>
     <string name="toast_genericerror">Quelque chose s\'est mal passé</string>
     <string name="toastcalendar_permission_denied">Autorisations de calendrier refusées.</string>
-    <string name="eventdetailspage_openingcalendartoast">Ouverture de l\'application Calendrier...</string>
+    <string name="eventdetailspage_openingcalendartoast">Ouverture de l\'application Calendrier…</string>
     <string name="eventdetailspage_nocalendarfound_toast">Aucune application de calendrier n\'a été trouvée</string>
     <string name="eventdetailspage_successfullyregistred_toast">Inscription réussie</string>
     <string name="eventdetailspage_alreadyregistred_toast">Vous êtes déjà inscrit</string>
@@ -78,4 +78,6 @@
     <string name="pollcreationpage_numberofchoices">Nombre de choix</string>
     <string name="pollcreationpage_ok_button">OK</string>
     <string name="pollcreationpage_toastdisallowedword">Votre sondage contient un mot interdit. Veuillez réessayer.</string>
+    <string name="email_noemailapp_text">Aucune application de messagerie n\'a été trouvée</string>
+    <string name="email_openingemailapp_text">Ouverture de l\'application de messagerie…</string>
 </resources>

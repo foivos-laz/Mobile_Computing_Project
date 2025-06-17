@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-@Preview
 fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController){
 
     val orange = Color(0xFFF87217)

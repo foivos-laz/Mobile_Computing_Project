@@ -66,10 +66,6 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx")
     implementation("io.coil-kt:coil-compose:2.4.0")
 
-    //implementation("com.google.apis:google-api-services-calendar:v3-rev305-1.23.0")
-
-
-
     val nav_version = "2.9.0"
     implementation("androidx.navigation:navigation-compose:$nav_version")
 }

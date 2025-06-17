@@ -1,7 +1,6 @@
 package com.example.mobilecomputingassignment
 
 import android.content.Context
-import android.os.Message
 import android.widget.Toast
 
 object AppUtil {

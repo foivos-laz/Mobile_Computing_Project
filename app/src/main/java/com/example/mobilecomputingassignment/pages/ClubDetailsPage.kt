@@ -1,10 +1,13 @@
 package com.example.mobilecomputingassignment.pages
 
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -41,6 +45,7 @@ import com.example.mobilecomputingassignment.components.ClubsHostedEvents
 import com.example.mobilecomputingassignment.model.ClubModel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import androidx.core.net.toUri
 
 @Composable
 fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
@@ -61,7 +66,7 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
             }
     }
 
-    LocalContext.current
+    var context =  LocalContext.current
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(32.dp),
@@ -137,6 +142,33 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    //Email for contact with the club
+                    Column(modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally){
+                        Text(text = stringResource(id = R.string.loginscreen_textbox_email), modifier = Modifier,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontSize = 20.sp,
+                            ))
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Text(text = club.email, modifier = Modifier
+                            .clickable{
+                                sendEmailToClub(context, club)
+                            },
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFFF87217),
+                                textDecoration = TextDecoration.Underline
+                            ))
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     //Campus where the club is at
                     Column(modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
@@ -178,5 +210,20 @@ fun ClubDetailsPage(modifier: Modifier = Modifier, clubID : String) {
                 }
             }
         }
+    }
+}
+
+fun sendEmailToClub(context: Context, club: ClubModel) {
+    val toastSuccess = R.string.email_openingemailapp_text
+    val toastFail = R.string.email_noemailapp_text
+
+    val uri = "mailto:${club.email}".toUri()
+    val intent = Intent(Intent.ACTION_SENDTO, uri)
+
+    if (intent.resolveActivity(context.packageManager) != null) {
+        Toast.makeText(context, toastSuccess, Toast.LENGTH_SHORT).show()
+        context.startActivity(Intent.createChooser(intent, "Choose an email client"))
+    } else {
+        Toast.makeText(context, toastFail, Toast.LENGTH_SHORT).show()
     }
 }

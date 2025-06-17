@@ -56,7 +56,7 @@
     <string name="commentpage_toast2">Ihr Kommentar wurde nicht erfolgreich erstellt</string>
     <string name="toast_genericerror">Da ist etwas schiefgelaufen</string>
     <string name="toastcalendar_permission_denied">Kalenderberechtigungen verweigert.</string>
-    <string name="eventdetailspage_openingcalendartoast">Kalender-App wird geöffnet ...</string>
+    <string name="eventdetailspage_openingcalendartoast">Kalender-App wird geöffnet …</string>
     <string name="eventdetailspage_nocalendarfound_toast">Es wurde keine Kalender-App gefunden</string>
     <string name="eventdetailspage_successfullyregistred_toast">Erfolgreich registriert</string>
     <string name="eventdetailspage_alreadyregistred_toast">Sie sind bereits registriert</string>
@@ -78,4 +78,6 @@
     <string name="pollcreationpage_numberofchoices">Anzahl der Auswahlmöglichkeiten</string>
     <string name="pollcreationpage_ok_button">OK</string>
     <string name="pollcreationpage_toastdisallowedword">Ihre Umfrage enthält ein unzulässiges Wort. Bitte versuchen Sie es erneut.</string>
+    <string name="email_noemailapp_text">Es wurde keine E-Mail-App gefunden</string>
+    <string name="email_openingemailapp_text">E-Mail-App wird geöffnet …</string>
 </resources>
