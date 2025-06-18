@@ -10,6 +10,7 @@ import com.example.mobilecomputingassignment.pages.ClubDetailsPage
 import com.example.mobilecomputingassignment.pages.CommentsPage
 import com.example.mobilecomputingassignment.pages.EventDetailsPage
 import com.example.mobilecomputingassignment.pages.PollCreationPage
+import com.example.mobilecomputingassignment.pages.PollDetailsPage
 import com.example.mobilecomputingassignment.screen.AuthScreen
 import com.example.mobilecomputingassignment.screen.HomeScreen
 import com.example.mobilecomputingassignment.screen.LoginScreen
@@ -67,6 +68,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable(Routes.commentspage+"{uid}") {
             var eventID = it.arguments?.getString("uid")
             CommentsPage(modifier, eventID?:"")
+        }
+        composable(Routes.polldetailspage+"{uid}") {
+            var pollID = it.arguments?.getString("uid")
+            PollDetailsPage(modifier, pollID?:"")
         }
     })
 }

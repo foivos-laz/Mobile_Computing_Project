@@ -80,4 +80,11 @@
     <string name="pollcreationpage_toastdisallowedword">Votre sondage contient un mot interdit. Veuillez réessayer.</string>
     <string name="email_noemailapp_text">Aucune application de messagerie n\'a été trouvée</string>
     <string name="email_openingemailapp_text">Ouverture de l\'application de messagerie…</string>
+    <string name="pollsplage_details_text">Détails</string>
+    <string name="polldetailspage_delete_button">Supprimer le sondage</string>
+    <string name="polldetailspage_showresponders_button">Afficher les répondants</string>
+    <string name="polldetailspage_textdelete">Si vous souhaitez supprimer votre sondage, cliquez sur le bouton ci-dessous. Cette action est irréversible !</string>
+    <string name="polldetailspage_delete_toast">Votre sondage a été supprimé avec succès</string>
+    <string name="polldetailspage_dialog_title">Les personnes qui ont sélectionné</string>
+    <string name="polldetailspage_dialog_noanswers">Aucun utilisateur n\'a encore sélectionné ce choix.</string>
 </resources>

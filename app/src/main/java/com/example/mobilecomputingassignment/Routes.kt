@@ -10,4 +10,5 @@ object Routes {
     var clubdetailspage = "ClubDetailsPage"
     var pollcreationpage = "PollCreationPage"
     var commentspage = "CommentsPage"
+    var polldetailspage = "PollDetailsPage"
 }

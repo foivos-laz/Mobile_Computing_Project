@@ -29,6 +29,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,6 +57,7 @@ import com.example.mobilecomputingassignment.Routes
 import com.example.mobilecomputingassignment.model.PollModel
 import com.example.mobilecomputingassignment.model.ReportModel
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -124,21 +126,7 @@ fun PollView(modifier: Modifier = Modifier, userID : String) {
                 }
             }
         }
-        /*Button(
-            onClick = {GlobalNavigation.navController.navigate(Routes.pollcreationpage) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(156.dp)
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 100.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFF87217),
-                contentColor = Color.White)
-        ) {
-            Text(text = stringResource(id = R.string.pollpage_createpoll_button), fontSize = 18.sp,
-                fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)
-        }*/
+
         FloatingActionButton(
             onClick = {
                 GlobalNavigation.navController.navigate(Routes.pollcreationpage)
@@ -159,6 +147,10 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
     var enabled by remember {
         mutableStateOf(true)
     }
+
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
+    val currentUserID = currentUser?.uid!!
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -244,6 +236,19 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
                         fontWeight = FontWeight.Normal, textAlign = TextAlign.Center)
                 }
 
+                if(currentUserID == poll.value.creatorID){
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    OutlinedButton (onClick = {
+                        GlobalNavigation.navController.navigate(Routes.polldetailspage+poll.value.id)
+                    },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = Color(0xFFF87217))) {
+                        Text(text = stringResource(id = R.string.pollsplage_details_text))
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
@@ -310,6 +315,10 @@ fun PollItem(modifier: Modifier,poll : MutableState<PollModel>, userID: String){
 
 @Composable
 fun ShowAnswer(poll : PollModel, userID: String){
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
+    val currentUserID = currentUser?.uid!!
+
     val choiceListe = poll.choices.associate { it to 0 }.toMutableMap()
         //mutableMapOf<String, Int>()
     val userChoice : MutableList<String> = remember { mutableListOf("") }
@@ -368,6 +377,19 @@ fun ShowAnswer(poll : PollModel, userID: String){
                         }
                     }
                 }
+            }
+        }
+
+        if(currentUserID == poll.creatorID){
+            Spacer(modifier = Modifier.height(5.dp))
+
+            OutlinedButton (onClick = {
+                GlobalNavigation.navController.navigate(Routes.polldetailspage+poll.id)
+            },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color(0xFFF87217))) {
+                Text(text = stringResource(id = R.string.pollsplage_details_text))
             }
         }
     }

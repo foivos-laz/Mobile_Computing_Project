@@ -80,4 +80,11 @@
     <string name="pollcreationpage_toastdisallowedword">Η δημοσκόπησή σας περιέχει μια μη επιτρεπόμενη λέξη. Δοκιμάστε ξανά.</string>
     <string name="email_noemailapp_text">Δεν βρέθηκε εφαρμογή ηλεκτρονικού ταχυδρομείου</string>
     <string name="email_openingemailapp_text">Άνοιγμα εφαρμογής ηλεκτρονικού ταχυδρομείου…</string>
+    <string name="pollsplage_details_text">Λεπτομέρειες</string>
+    <string name="polldetailspage_delete_button">Διαγραφή δημοσκόπησης</string>
+    <string name="polldetailspage_showresponders_button">Εμφάνιση ανταποκριτών</string>
+    <string name="polldetailspage_textdelete">Αν θέλετε να διαγράψετε την δημοσκόπησή σας, μπορείτε να πατήσετε το κουμπί παρακάτω. Αυτή η ενέργεια δεν είναι αναστρέψιμη!</string>
+    <string name="polldetailspage_delete_toast">Η δημοσκόπησή σας διαγράφηκε με επιτυχία</string>
+    <string name="polldetailspage_dialog_title">Άτομα που έχουν επιλέξει</string>
+    <string name="polldetailspage_dialog_noanswers">Κανένας χρήστης δεν έχει επιλέξει αυτήν την επιλογή ακόμη.</string>
 </resources>

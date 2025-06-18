@@ -79,4 +79,11 @@
     <string name="pollcreationpage_toastdisallowedword">Your poll contains a disallowed word. Please try again.</string>
     <string name="email_noemailapp_text">No email app was found</string>
     <string name="email_openingemailapp_text">Opening email app...</string>
+    <string name="pollsplage_details_text">Details</string>
+    <string name="polldetailspage_delete_button">Delete poll</string>
+    <string name="polldetailspage_showresponders_button">Show responders</string>
+    <string name="polldetailspage_textdelete">If you wish to delete your poll, you can press the button below. This action is non reversable!</string>
+    <string name="polldetailspage_delete_toast">Your poll has been deleted successfully</string>
+    <string name="polldetailspage_dialog_title">People who have selected</string>
+    <string name="polldetailspage_dialog_noanswers">No users have selected this choice yet.</string>
 </resources>

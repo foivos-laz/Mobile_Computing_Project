@@ -80,4 +80,11 @@
     <string name="pollcreationpage_toastdisallowedword">Ihre Umfrage enthält ein unzulässiges Wort. Bitte versuchen Sie es erneut.</string>
     <string name="email_noemailapp_text">Es wurde keine E-Mail-App gefunden</string>
     <string name="email_openingemailapp_text">E-Mail-App wird geöffnet …</string>
+    <string name="pollsplage_details_text">Details</string>
+    <string name="polldetailspage_delete_button">Umfrage löschen</string>
+    <string name="polldetailspage_showresponders_button">Antwortende anzeigen</string>
+    <string name="polldetailspage_textdelete">Wenn Sie Ihre Umfrage löschen möchten, klicken Sie auf den untenstehenden Button. Diese Aktion ist nicht rückgängig zu machen!</string>
+    <string name="polldetailspage_delete_toast">Ihre Umfrage wurde erfolgreich gelöscht</string>
+    <string name="polldetailspage_dialog_title">Personen, die ausgewählt haben</string>
+    <string name="polldetailspage_dialog_noanswers">Bisher hat noch kein Benutzer diese Auswahl getroffen.</string>
 </resources>

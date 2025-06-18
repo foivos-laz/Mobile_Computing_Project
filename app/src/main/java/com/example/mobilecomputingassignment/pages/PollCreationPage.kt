@@ -40,6 +40,7 @@ import com.google.firebase.firestore.firestore
 import com.example.mobilecomputingassignment.R
 import com.example.mobilecomputingassignment.model.DisallowedWordsModel
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun PollCreationPage(modifier: Modifier = Modifier) {
@@ -176,7 +177,10 @@ fun PollCreationPage(modifier: Modifier = Modifier) {
                 errorMessage.value = false
                 val result = sendNewPoll(texte, multipleChoice.value, disallowedWordsList, context, toastDisallowedWord)
                 if(result == true){
-                    GlobalNavigation.navController.navigate(Routes.homescreen)
+                    GlobalNavigation.navController.navigate(Routes.homescreen){
+                        popUpTo(Routes.pollcreationpage) {inclusive = true}
+                    }
+
                 }
                 else{
                     null
@@ -206,12 +210,17 @@ fun sendNewPoll(texte : MutableList<String>, multipleAnswers : Boolean, disallow
 
     var containsDisallowedWord  = false
 
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
+    val userID = currentUser?.uid!!
+
     val pollID = Firebase.firestore.collection("poll").document().id
     val newPoll = hashMapOf(
         "id" to pollID,
         "question" to texte[0],
         "choices" to texte.drop(1),
         "creationDate" to Timestamp.now(),
+        "creatorID" to userID,
         "multipleChoice" to multipleAnswers,
         "answers" to mapOf<String, List<String>>()
     )
