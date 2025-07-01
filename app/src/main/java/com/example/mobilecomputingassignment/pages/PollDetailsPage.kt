@@ -242,7 +242,7 @@ fun RespondersDialog(onDismiss: () -> Unit, poll: PollModel, choice: String) {
         mutableStateOf<List<UserModel>>(emptyList())
     }
 
-    // Fetch all users once
+    // Fetch all users
     LaunchedEffect(Unit) {
         Firebase.firestore.collection("users")
             .get()
